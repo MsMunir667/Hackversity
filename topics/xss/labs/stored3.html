@@ -141,18 +141,17 @@
   const flag = document.getElementById('flag');
 
   function postMessage() {
-    const msg = document.getElementById('msg').value.trim();
-    if (!msg) {
-      alert("Please enter a valid message.");
-      return;
-    }
-    let messages = JSON.parse(localStorage.getItem('messages') || '[]');
-    messages.push({ text: msg, time: Date.now() });
-    localStorage.setItem('messages', JSON.stringify(messages));
-    sessionStorage.setItem('lastPostedTime', Date.now().toString());
-    document.getElementById('msg').value = '';
-    location.reload();
-  }
+  const msg = document.getElementById('msg').value.trim();
+  if (!msg) return; // Silently reject empty messages
+
+  let messages = JSON.parse(localStorage.getItem('messages') || '[]');
+  messages.push({ text: msg, time: Date.now() });
+  localStorage.setItem('messages', JSON.stringify(messages));
+  sessionStorage.setItem('lastPostedTime', Date.now().toString());
+  document.getElementById('msg').value = '';
+  location.reload();
+}
+
 
   function loadMessages() {
     let messages = JSON.parse(localStorage.getItem('messages') || '[]');
