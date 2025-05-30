@@ -166,7 +166,7 @@
       board.appendChild(div);
 
       if (m.time === lastPostedTime && /<script.*?>.*?alert\s*\(.*?\)<\/script>/i.test(m.text)) {
-        setTimeout(() => flag.style.display = 'block', 500);
+        setTimeout(() => flag.style.display = '', 500);
       }
     });
 
