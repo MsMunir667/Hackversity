@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Lab 1: Reflected XSS - Basic Payload</title>
+  <style>
+    body {
+      background-color: #0d0d0d;
+      color: #00ff00;
+      font-family: 'Courier New', Courier, monospace;
+      padding: 20px;
+    }
+    h1, h2, h3 { color: #00ff00; }
+    p, pre, code { color: #00ff00; }
+    pre {
+      background-color: #001100;
+      padding: 10px;
+      border-radius: 5px;
+      overflow-x: auto;
+    }
+    .flag-box input[type="text"] {
+      background-color: #001100;
+      color: #00ff00;
+      border: 1px solid #00ff00;
+      padding: 8px;
+      width: 300px;
+      font-family: monospace;
+    }
+    .flag-box button {
+      background-color: #004400;
+      color: #00ff00;
+      border: 1px solid #00ff00;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .flag-box button:hover {
+      background-color: #00aa00;
+      color: #000000;
+    }
+    #result {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    #result.success {
+      color: #00ff00;
+    }
+    #result.error {
+      color: #ff3300;
+    }
+    a {
+      color: #00ff00;
+      text-decoration: underline;
+    }
+    a:hover {
+      color: #ff3300;
+    }
+    #vulnerable-output {
+      margin-top: 20px;
+      font-weight: bold;
+      border: 1px solid #00ff00;
+      padding: 10px;
+      background-color: #001100;
+      border-radius: 5px;
+      min-height: 40px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Lab 1: Reflected XSS - Basic Payload</h1>
+  <p><strong>Explanation:</strong> This lab demonstrates a basic reflected XSS vulnerability. User input from the URL query parameter <code>input</code> is injected directly into the page's HTML without any sanitization, allowing JavaScript execution.</p>
+  <p>Try injecting payloads via the URL like:</p>
+  <pre><code>reflected1.html?input=&lt;script&gt;alert('XSS')&lt;/script&gt;</code></pre>
+  <p>The injected script will execute when the page loads.</p>
+
+  <div id="vulnerable-output"></div>
+
+  <div class="flag-box">
+    <input type="text" id="flagInput" placeholder="Enter flag here..." />
+    <button onclick="checkFlag()">Submit</button>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    // Get the 'input' parameter from URL
+    const params = new URLSearchParams(window.location.search);
+    const input = params.get('input') || '';
+
+    // Vulnerable reflection of input
+    document.getElementById('vulnerable-output').innerHTML = input;
+
+    // Flag check function
+    function checkFlag() {
+      const flag = document.getElementById('flagInput').value.trim();
+      const res = document.getElementById('result');
+      if (flag === 'flag{reflected1_correct}') {
+        res.className = 'success';
+        res.textContent = 'Correct! You found the flag.';
+      } else {
+        res.className = 'error';
+        res.textContent = 'Try again.';
+      }
+    }
+  </script>
+</body>
+</html>
