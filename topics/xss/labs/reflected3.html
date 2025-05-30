@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Hackversity - Lab 3: Reflected XSS - Attribute Injection</title>
+  <style>
+    body {
+      background-color: #0d0d0d;
+      color: #00ff00;
+      font-family: 'Courier New', Courier, monospace;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    nav {
+      background-color: #001100;
+      padding: 15px 30px;
+      font-size: 1.5rem;
+      font-weight: bold;
+      border-bottom: 2px solid #00ff00;
+    }
+    header {
+      padding: 30px;
+    }
+    h1 {
+      margin-bottom: 10px;
+    }
+    form {
+      margin-bottom: 20px;
+    }
+    input[type="text"] {
+      width: 320px;
+      padding: 10px;
+      font-size: 1rem;
+      background-color: #000;
+      border: 2px solid #00ff00;
+      color: #00ff00;
+      font-family: monospace;
+      border-radius: 3px;
+    }
+    input[type="submit"] {
+      padding: 10px 20px;
+      font-size: 1rem;
+      background-color: #001100;
+      border: 2px solid #00ff00;
+      color: #00ff00;
+      cursor: pointer;
+      margin-left: 12px;
+      border-radius: 3px;
+    }
+    main {
+      padding: 0 30px 40px;
+      flex-grow: 1;
+    }
+    .explanation {
+      max-width: 700px;
+      font-size: 1rem;
+      margin-top: 20px;
+      line-height: 1.5;
+      border: 1px solid #004400;
+      padding: 20px;
+      background-color: #001100;
+      border-radius: 5px;
+    }
+    .result {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+    .flag {
+      margin-top: 30px;
+      padding: 15px;
+      background-color: #111111;
+      border: 2px dashed #00ff00;
+      color: #00ff00;
+      font-weight: bold;
+      font-size: 1.2rem;
+      display: none;
+      max-width: 700px;
+      border-radius: 5px;
+    }
+    footer {
+      padding: 20px 30px;
+      font-size: 0.9rem;
+      color: #ff0000;
+      background-color: #001100;
+      border-top: 2px solid #00ff00;
+    }
+  </style>
+</head>
+<body>
+
+<nav>Hackversity</nav>
+
+<header>
+  <h1>🧪 Lab 3: Reflected XSS - Attribute Injection</h1>
+  <form method="GET" action="">
+    <input type="text" name="username" placeholder="Enter your name..." autocomplete="off" />
+    <input type="submit" value="Submit" />
+  </form>
+</header>
+
+<main>
+  <div id="output">
+    <p class="result">No name entered.</p>
+  </div>
+
+  <div class="explanation">
+    <h2>About this Lab:</h2>
+    <p>
+      This lab reflects user input into an HTML attribute without escaping quotes. You can break out of the attribute and inject additional ones like <code>onmouseover</code> or <code>onerror</code> to execute JavaScript.
+    </p>
+    <p>
+      <strong>Example:</strong><br>
+      <code>" onmouseover="alert('XSS')</code>
+    </p>
+    <p>
+      <strong>Goal:</strong> Inject JavaScript into an attribute context so that an alert appears. Once successful, the flag will be revealed.
+    </p>
+    <p>
+      <em>Hint:</em> Try breaking out of the <code>alt</code> attribute of the generated image.
+    </p>
+  </div>
+
+  <div id="flag" class="flag">
+    🏴 Flag: hackversity{attribute_xss_exploited}
+  </div>
+</main>
+
+<footer>
+  ⚠️ Warning: This lab is intentionally vulnerable. Do not use these techniques on real applications.
+</footer>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const outputDiv = document.getElementById('output');
+  const flagDiv = document.getElementById('flag');
+
+  if (params.has('username')) {
+    const userInput = params.get('username');
+
+    // Vulnerable attribute injection via alt attribute
+    outputDiv.innerHTML = `
+      <p class="result">Welcome, <img src="profile.png" alt="${userInput}" /></p>
+      <p>(Your name is shown inside an image's alt attribute.)</p>
+    `;
+
+    // Check for common attribute-based payloads
+    if (/on\w+\s*=\s*["']?alert\s*\(/i.test(userInput)) {
+      setTimeout(() => {
+        flagDiv.style.display = 'block';
+      }, 800);
+    } else {
+      flagDiv.style.display = 'none';
+    }
+  }
+</script>
+
+</body>
+</html>
