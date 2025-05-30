@@ -10,11 +10,11 @@
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
-      background: #f5f7fa;
-      color: #333;
+      background: #101522;
+      color: #00ff00;
     }
     .navbar {
-      background-color: #1a1a2e;
+      background-color: #0c0c2c;
       color: white;
       padding: 1rem 2rem;
       display: flex;
@@ -43,34 +43,71 @@
       font-weight: bold;
     }
     .course-header {
-      background-color: #e0eaff;
+      background-color: #1f1f3a;
       padding: 2rem;
       text-align: center;
     }
     .course-section {
-      background: white;
-      margin: 2rem;
-      padding: 1.5rem;
+      background: #18182f;
+      margin: 3rem;
+      padding: 2rem;
       border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.4);
     }
-    h1, h2 {
-      color: #102b72;
+    h1, h2, h3 {
+      color: #00ff00;
+    }
+    p, li, code {
+      color: #00ff00;
     }
     a {
-      color: #1e90ff;
+      color: #00ff00;
       text-decoration: none;
     }
     a:hover {
       text-decoration: underline;
     }
     code {
-      background-color: #eee;
+      background-color: #2a2a4a;
       padding: 0.2rem 0.4rem;
       border-radius: 4px;
     }
     ul ul {
       margin-left: 1.5rem;
+    }
+    .topic-section {
+      margin-bottom: 4rem;
+    }
+    .lab, .challenge {
+      margin-top: 1rem;
+      padding: 1rem;
+      background-color: #262640;
+      border-left: 4px solid #00ff00;
+      border-radius: 5px;
+      margin-bottom: 1rem;
+    }
+    .flag-box {
+      margin-top: 0.5rem;
+    }
+    .flag-box input {
+      padding: 0.5rem;
+      width: 70%;
+      border: none;
+      border-radius: 5px;
+      margin-right: 0.5rem;
+    }
+    .flag-box button {
+      padding: 0.5rem 1rem;
+      background-color: #00ff00;
+      color: #000;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .completed {
+      color: #32cd32;
+      font-weight: bold;
+      margin-left: 1rem;
     }
     @media (max-width: 768px) {
       .nav-links {
@@ -82,6 +119,10 @@
       .nav-links.active {
         display: flex;
       }
+      .course-section {
+        margin: 1rem;
+        padding: 1rem;
+      }
     }
   </style>
 </head>
@@ -92,6 +133,8 @@
     <ul class="nav-links">
       <li><a href="../../index.html">Home</a></li>
       <li><a href="../xss.html">Back to XSS Course</a></li>
+      <li><a href="../../blog.html">Blog</a></li>
+      <li><a href="../../shop.html">Shop</a></li>
     </ul>
   </nav>
 
@@ -100,76 +143,220 @@
     <p>Dive deep into understanding Cross-Site Scripting, its mechanics, contexts, and real-world application vulnerabilities.</p>
   </header>
 
-  <!-- Rest of the content remains unchanged -->
-
   <section class="course-section">
-    <h2>📖 Topics & Details</h2>
-    <ul>
-      <li><strong>What is XSS?</strong><br>
-        Cross-Site Scripting (XSS) is a type of vulnerability that allows attackers to inject malicious scripts into content from otherwise trusted websites. It exploits the trust a user has in a website.<br>
-        XSS attacks can hijack sessions, deface websites, redirect users to malicious sites, or steal credentials.
-      </li>
-      <li><strong>Types of XSS:</strong>
-        <ul>
-          <li><strong>Reflected:</strong> The script is reflected off a web server (e.g., in a URL parameter or search result). Usually not stored, but activated by a user clicking a malicious link.<br><br>
-            <strong>Lab 1:</strong> Reflected XSS in Search <a href="labs/lab1.html">(Open Lab)</a><br>
-            <strong>Lab 2:</strong> Reflected XSS in Form Action <a href="labs/lab2.html">(Open Lab)</a><br>
-            <em>Writeup:</em> These labs demonstrate how reflected inputs (query strings or form data) without sanitization can lead to script execution. Try payloads in search or form inputs.
-          </li>
-          <li><strong>Stored:</strong> The malicious script is permanently stored on the target server (e.g., in a comment or user profile) and runs whenever anyone views the page.<br><br>
-            <strong>Lab 3:</strong> Stored XSS via Comment Field <a href="labs/lab3.html">(Open Lab)</a><br>
-            <strong>Lab 4:</strong> Stored XSS in Profile Bio <a href="labs/lab4.html">(Open Lab)</a><br>
-            <em>Writeup:</em> These labs allow script injection in fields stored in a backend database. Reload pages to trigger stored scripts.
-          </li>
-          <li><strong>DOM-based:</strong> The vulnerability exists entirely on the client side and is triggered when JavaScript modifies the DOM based on untrusted user input.<br><br>
-            <strong>Lab 5:</strong> DOM XSS with location.hash <a href="labs/lab5.html">(Open Lab)</a><br>
-            <strong>Lab 6:</strong> DOM XSS from innerHTML Injection <a href="labs/lab6.html">(Open Lab)</a><br>
-            <em>Writeup:</em> These labs use JavaScript to parse or reflect URL hash values into the page DOM. Learn the difference between safe and unsafe DOM methods.
-          </li>
-        </ul>
-      </li>
-      <li><strong>Payload Basics:</strong><br>
-        Start with simple testing using <code>alert()</code> to see if a script is executed. Inject using tags like <code>&lt;script&gt;</code>, <code>&lt;img onerror&gt;</code>, and <code>&lt;svg onload&gt;</code>. These payloads help you understand execution contexts and browser behaviors.
-      </li>
-      <li><strong>Contextual Execution:</strong><br>
-        Understand where the payload is being injected: in the body, attribute, URL, or inside a script block. Each context needs different escaping and payload strategy.<br><br>
-        <strong>Lab 7:</strong> HTML Attribute Context XSS <a href="labs/lab7.html">(Open Lab)</a><br>
-        <strong>Lab 8:</strong> JavaScript Context Injection <a href="labs/lab8.html">(Open Lab)</a><br>
-        <em>Writeup:</em> Learn how escaping affects execution depending on where the script appears in the HTML or JS structure.
-      </li>
-    </ul>
-  </section>
+    <div class="topic-section">
+      <h2>🔍 What is XSS?</h2>
+      <p>Cross-Site Scripting (XSS) is a security vulnerability that allows attackers to inject malicious scripts into web pages viewed by users. These scripts can steal session cookies, log keystrokes, redirect users to malicious websites, and perform actions on behalf of the user. XSS attacks exploit the trust a user places in a website or the website places in the user’s input.</p>
+    </div>
 
-  <section class="course-section">
-    <h2>🧪 Labs (Click to Open)</h2>
-    <ul>
-      <li><a href="labs/lab1.html">Lab 1 - Reflected XSS in Search</a></li>
-      <li><a href="labs/lab2.html">Lab 2 - Reflected XSS in Form Action</a></li>
-      <li><a href="labs/lab3.html">Lab 3 - Stored XSS via Comment</a></li>
-      <li><a href="labs/lab4.html">Lab 4 - Stored XSS in Profile Bio</a></li>
-      <li><a href="labs/lab5.html">Lab 5 - DOM XSS using location.hash</a></li>
-      <li><a href="labs/lab6.html">Lab 6 - DOM XSS via innerHTML</a></li>
-      <li><a href="labs/lab7.html">Lab 7 - Attribute Injection</a></li>
-      <li><a href="labs/lab8.html">Lab 8 - JavaScript Context Injection</a></li>
-    </ul>
-  </section>
+    <div class="topic-section">
+      <h2>🧪 Types of XSS</h2>
+      <ul>
+        <li><strong>Reflected XSS:</strong> Occurs when user-supplied data in HTTP requests (e.g., in a URL or form) is immediately returned by the server without proper validation or escaping. Commonly seen in search results or error messages.</li>
+        <li><strong>Stored XSS:</strong> The malicious script is stored on the server (e.g., in a comment field or user profile) and is executed when users view the stored data.</li>
+        <li><strong>DOM-Based XSS:</strong> A form of XSS where the vulnerability exists in client-side scripts. The server is not involved; the client-side JavaScript handles user input insecurely and updates the DOM directly.</li>
+      </ul>
+    </div>
 
-  <section class="course-section">
-    <h2>🚩 Challenges (Try & Capture Flag)</h2>
-    <ul>
-      <li><a href="challenges/challenge1.html">Challenge 1 - Reflected URL XSS</a></li>
-      <li><a href="challenges/challenge2.html">Challenge 2 - Comment Field XSS</a></li>
-      <li><a href="challenges/challenge3.html">Challenge 3 - Stored XSS</a></li>
-      <li><a href="challenges/challenge4.html">Challenge 4 - DOM XSS</a></li>
-      <li><a href="challenges/challenge5.html">Challenge 5 - XSS via Input Autocomplete</a></li>
-      <li><a href="challenges/challenge6.html">Challenge 6 - Script Context Bypass</a></li>
-      <li><a href="challenges/challenge7.html">Challenge 7 - JSON Response Injection</a></li>
-      <li><a href="challenges/challenge8.html">Challenge 8 - JavaScript Event Handler</a></li>
-      <li><a href="challenges/challenge9.html">Challenge 9 - Obfuscated Payload</a></li>
-      <li><a href="challenges/challenge10.html">Challenge 10 - Blind XSS Discovery</a></li>
-    </ul>
-  </section>
+    <div class="topic-section">
+      <h2>💡 Payload Basics</h2>
+      <p>Payloads are small code snippets injected into vulnerable points of a website to demonstrate or exploit XSS vulnerabilities. Common payloads include:</p>
+      <ul>
+        <li><code>&lt;script&gt;alert('XSS')&lt;/script&gt;</code> – classic script injection.</li>
+        <li><code>&lt;img src=x onerror=alert('XSS')&gt;</code> – uses image tag error handler to trigger JS.</li>
+        <li><code>&lt;svg onload=alert('XSS')&gt;</code> – another event-driven tag payload.</li>
+        <li><code>&lt;script&gt;alert('XSS')&lt;/script&gt;</code> — The classic and simplest alert popup.</li>
+        <li><code>&lt;img src=x onerror=alert('XSS')&gt;</code> — Using image tags and error events to trigger JS.</li>
+        <li><code>&lt;svg onload=alert('XSS')&gt;</code> — SVG tags that run scripts when loaded.</li>
+        <li><code>&lt;body onload=alert('XSS')&gt;</code> — Body tag event triggers on page load.</li>
+        <li><code>&lt;iframe src="javascript:alert('XSS')"&gt;&lt;/iframe&gt;</code> — Iframe with JavaScript source (some browsers block).</li>
+        <li><code>&lt;a href="javascript:alert('XSS')"&gt;Click Me&lt;/a&gt;</code> — Using javascript: URI in links.</li>
+        <li>Event handlers like <code>onmouseover</code>, <code>onclick</code>, <code>onfocus</code> to trigger payloads in attributes.</li>
+        <li>Encoding payloads with HTML entities or URL encoding to bypass filters.</li>
+        <li>Using template literals and backticks in newer JavaScript environments.</li>
+        <li>Combining HTML injection with script injection to manipulate page content.</li>
+      </ul>
+    </div>
 
+    <div class="topic-section">
+      <h2>🧪 Reflected XSS Labs</h2>
+      <div class="lab">
+        <h3><a href="labs/reflected1.html">Lab 1: Reflected XSS - Basic Payload</a></h3>
+        <p>Inject a basic <code>alert('XSS')</code> using URL query parameter to trigger a pop-up.</p>
+        <div class="flag-box">
+          <input type="text" placeholder="Enter flag here...">
+          <button>Submit</button>
+        </div>
+      </div>
+      <div class="lab">
+        <h3><a href="labs/reflected2.html">Lab 2: Reflected XSS - HTML Injection</a></h3>
+        <p>Try injecting HTML tags along with JavaScript to manipulate the DOM.</p>
+        <div class="flag-box">
+          <input type="text" placeholder="Enter flag here...">
+          <button>Submit</button>
+        </div>
+      </div>
+      <div class="lab">
+        <h3><a href="labs/reflected3.html">Lab 3: Reflected XSS - Attribute Injection</a></h3>
+        <p>Inject code inside an HTML attribute using special characters to break out.</p>
+        <div class="flag-box">
+          <input type="text" placeholder="Enter flag here...">
+          <button>Submit</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-section">
+      <h2>💾 Stored XSS Labs</h2>
+      <div class="lab">
+        <h3><a href="labs/stored1.html">Lab 4: Stored XSS - Comment Injection</a></h3>
+        <p>Post a comment containing a script and see it execute when another user visits the page.</p>
+        <div class="flag-box">
+          <input type="text" placeholder="Enter flag here...">
+          <button>Submit</button>
+        </div>
+      </div>
+      <div class="lab">
+        <h3><a href="labs/stored2.html">Lab 5: Stored XSS - User Bio Field</a></h3>
+        <p>Inject JavaScript into your bio or profile description and reload the profile to execute it.</p>
+        <div class="flag-box">
+          <input type="text" placeholder="Enter flag here...">
+          <button>Submit</button>
+        </div>
+      </div>
+      <div class="lab">
+        <h3><a href="labs/stored3.html">Lab 6: Stored XSS - Message Board</a></h3>
+        <p>Submit a message with a payload to a public board. When others view it, the payload runs.</p>
+        <div class="flag-box">
+          <input type="text" placeholder="Enter flag here...">
+          <button>Submit</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-section">
+      <h2>⚙️ DOM-Based XSS Labs</h2>
+      <div class="lab">
+        <h3><a href="labs/dom1.html">Lab 7: DOM XSS - Fragment Injection</a></h3>
+        <p>Inject payload via URL hash (e.g. <code>#name=&lt;script&gt;alert(1)&lt;/script&gt;</code>).</p>
+        <div class="flag-box">
+          <input type="text" placeholder="Enter flag here...">
+          <button>Submit</button>
+        </div>
+      </div>
+      <div class="lab">
+        <h3><a href="labs/dom2.html">Lab 8: DOM XSS - Location.href</a></h3>
+        <p>Use <code>location.href</code> in JavaScript to reflect input into the DOM insecurely.</p>
+        <div class="flag-box">
+          <input type="text" placeholder="Enter flag here...">
+          <button>Submit</button>
+        </div>
+      </div>
+      <div class="lab">
+        <h3><a href="labs/dom3.html">Lab 9: DOM XSS - JavaScript Sink</a></h3>
+        <p>Explore a custom sink like <code>innerHTML</code> or <code>document.write</code> to inject code.</p>
+        <div class="flag-box">
+          <input type="text" placeholder="Enter flag here...">
+          <button>Submit</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-section">
+      <h2>🏁 Challenges</h2>
+      <div class="challenge">
+        <h3><a href="challenges/challenge1.html">Challenge 1</a></h3>
+        <p>Use reflected input field and inject a payload to trigger <code>alert(1)</code>. Hint: Try using the URL bar.</p>
+        <div class="flag-box">
+          <input type="text" placeholder="Enter flag here...">
+          <button>Submit</button>
+        </div>
+      </div>
+      <div class="challenge">
+        <h3><a href="challenges/challenge2.html">Challenge 2</a></h3>
+        <p>Break out of an HTML attribute and execute JS. Hint: Try <code>" onmouseover=alert(1) x="</code></p>
+        <div class="flag-box">
+          <input type="text" placeholder="Enter flag here...">
+          <button>Submit</button>
+        </div>
+      </div>
+
+       <!-- New 8 Challenges -->
+
+      <div class="challenge">
+        <h3><a href="challenges/challenge3.html">Challenge 3</a></h3>
+        <p>Inject an image tag with an error event to trigger a popup. Hint: Use <code>&lt;img src=x onerror=alert('XSS')&gt;</code></p>
+        <div class="flag-box">
+          <input type="text" placeholder="Enter flag here..." />
+          <button>Submit</button>
+        </div>
+      </div>
+
+      <div class="challenge">
+        <h3><a href="challenges/challenge4.html">Challenge 4</a></h3>
+        <p>Use SVG <code>onload</code> event to execute JavaScript on page load. Hint: <code>&lt;svg onload=alert('XSS')&gt;&lt;/svg&gt;</code></p>
+        <div class="flag-box">
+          <input type="text" placeholder="Enter flag here..." />
+          <button>Submit</button>
+        </div>
+      </div>
+
+      <div class="challenge">
+        <h3><a href="challenges/challenge5.html">Challenge 5</a></h3>
+        <p>Use the <code>javascript:</code> URI scheme in a hyperlink to execute JS. Hint: <code>&lt;a href="javascript:alert('XSS')"&gt;</code></p>
+        <div class="flag-box">
+          <input type="text" placeholder="Enter flag here..." />
+          <button>Submit</button>
+        </div>
+      </div>
+
+      <div class="challenge">
+        <h3><a href="challenges/challenge6.html">Challenge 6</a></h3>
+        <p>Try injecting XSS via the URL fragment (hash) to exploit DOM-based XSS. Hint: Use <code>#name=&lt;script&gt;alert(1)&lt;/script&gt;</code></p>
+        <div class="flag-box">
+          <input type="text" placeholder="Enter flag here..." />
+          <button>Submit</button>
+        </div>
+      </div>
+
+      <div class="challenge">
+        <h3><a href="challenges/challenge7.html">Challenge 7</a></h3>
+        <p>Inject JavaScript inside HTML attributes breaking out of quotes. Hint: Try <code>' onfocus=alert(1) x='</code></p>
+        <div class="flag-box">
+          <input type="text" placeholder="Enter flag here..." />
+          <button>Submit</button>
+        </div>
+      </div>
+
+      <div class="challenge">
+        <h3><a href="challenges/challenge8.html">Challenge 8</a></h3>
+        <p>Inject payload using template literals (backticks) to execute JavaScript. Hint: Use <code>`alert(1)`</code> in an event handler.</p>
+        <div class="flag-box">
+          <input type="text" placeholder="Enter flag here..." />
+          <button>Submit</button>
+        </div>
+      </div>
+
+      <div class="challenge">
+        <h3><a href="challenges/challenge9.html">Challenge 9</a></h3>
+        <p>Combine HTML and script injection to manipulate the DOM and execute JS. Hint: Try injecting <code>&lt;div&gt;&lt;script&gt;alert(1)&lt;/script&gt;&lt;/div&gt;</code></p>
+        <div class="flag-box">
+          <input type="text" placeholder="Enter flag here..." />
+          <button>Submit</button>
+        </div>
+      </div>
+
+      <div class="challenge">
+        <h3><a href="challenges/challenge10.html">Challenge 10</a></h3>
+        <p>Bypass simple input filters using URL encoding or HTML entities to execute an alert. Hint: Encode <code>&lt;script&gt;</code> as <code>%3Cscript%3E</code></p>
+        <div class="flag-box">
+          <input type="text" placeholder="Enter flag here..." />
+          <button>Submit</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
 
   <script>
     document.querySelector('.menu-toggle').addEventListener('click', () => {
