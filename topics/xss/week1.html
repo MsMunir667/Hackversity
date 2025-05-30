@@ -5,6 +5,85 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Week 1 - XSS Basics & Context</title>
   <link rel="stylesheet" href="../../style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f5f7fa;
+      color: #333;
+    }
+    .navbar {
+      background-color: #1a1a2e;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .nav-brand {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    .menu-toggle {
+      font-size: 1.5rem;
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+    }
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 1rem;
+    }
+    .nav-links li a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .course-header {
+      background-color: #e0eaff;
+      padding: 2rem;
+      text-align: center;
+    }
+    .course-section {
+      background: white;
+      margin: 2rem;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    h1, h2 {
+      color: #102b72;
+    }
+    a {
+      color: #1e90ff;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    code {
+      background-color: #eee;
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+    }
+    ul ul {
+      margin-left: 1.5rem;
+    }
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-top: 1rem;
+      }
+      .nav-links.active {
+        display: flex;
+      }
+    }
+  </style>
 </head>
 <body>
   <nav class="navbar">
@@ -21,35 +100,57 @@
     <p>Dive deep into understanding Cross-Site Scripting, its mechanics, contexts, and real-world application vulnerabilities.</p>
   </header>
 
+  <!-- Rest of the content remains unchanged -->
+
   <section class="course-section">
     <h2>📖 Topics & Details</h2>
     <ul>
-      <li><strong>What is XSS?</strong> - Cross-Site Scripting (XSS) is a type of vulnerability that allows attackers to inject malicious scripts into content from otherwise trusted websites. It exploits the trust a user has in a website.</li>
+      <li><strong>What is XSS?</strong><br>
+        Cross-Site Scripting (XSS) is a type of vulnerability that allows attackers to inject malicious scripts into content from otherwise trusted websites. It exploits the trust a user has in a website.<br>
+        XSS attacks can hijack sessions, deface websites, redirect users to malicious sites, or steal credentials.
+      </li>
       <li><strong>Types of XSS:</strong>
         <ul>
-          <li><strong>Reflected:</strong> Script is reflected off a web server, such as in an error message or search result.</li>
-          <li><strong>Stored:</strong> Script is permanently stored on the target server (e.g., in a database).</li>
-          <li><strong>DOM-based:</strong> The vulnerability exists in client-side code rather than server-side.</li>
+          <li><strong>Reflected:</strong> The script is reflected off a web server (e.g., in a URL parameter or search result). Usually not stored, but activated by a user clicking a malicious link.<br><br>
+            <strong>Lab 1:</strong> Reflected XSS in Search <a href="labs/lab1.html">(Open Lab)</a><br>
+            <strong>Lab 2:</strong> Reflected XSS in Form Action <a href="labs/lab2.html">(Open Lab)</a><br>
+            <em>Writeup:</em> These labs demonstrate how reflected inputs (query strings or form data) without sanitization can lead to script execution. Try payloads in search or form inputs.
+          </li>
+          <li><strong>Stored:</strong> The malicious script is permanently stored on the target server (e.g., in a comment or user profile) and runs whenever anyone views the page.<br><br>
+            <strong>Lab 3:</strong> Stored XSS via Comment Field <a href="labs/lab3.html">(Open Lab)</a><br>
+            <strong>Lab 4:</strong> Stored XSS in Profile Bio <a href="labs/lab4.html">(Open Lab)</a><br>
+            <em>Writeup:</em> These labs allow script injection in fields stored in a backend database. Reload pages to trigger stored scripts.
+          </li>
+          <li><strong>DOM-based:</strong> The vulnerability exists entirely on the client side and is triggered when JavaScript modifies the DOM based on untrusted user input.<br><br>
+            <strong>Lab 5:</strong> DOM XSS with location.hash <a href="labs/lab5.html">(Open Lab)</a><br>
+            <strong>Lab 6:</strong> DOM XSS from innerHTML Injection <a href="labs/lab6.html">(Open Lab)</a><br>
+            <em>Writeup:</em> These labs use JavaScript to parse or reflect URL hash values into the page DOM. Learn the difference between safe and unsafe DOM methods.
+          </li>
         </ul>
       </li>
-      <li><strong>Payload Basics:</strong> Learn how to use <code>alert()</code> for testing, and inject via tags like <code>script</code>, <code>img</code>, <code>svg</code>.</li>
-      <li><strong>Contextual Execution:</strong> The execution of XSS depends on the context: HTML body, attribute, script, or URL — each reacts differently to payloads.</li>
+      <li><strong>Payload Basics:</strong><br>
+        Start with simple testing using <code>alert()</code> to see if a script is executed. Inject using tags like <code>&lt;script&gt;</code>, <code>&lt;img onerror&gt;</code>, and <code>&lt;svg onload&gt;</code>. These payloads help you understand execution contexts and browser behaviors.
+      </li>
+      <li><strong>Contextual Execution:</strong><br>
+        Understand where the payload is being injected: in the body, attribute, URL, or inside a script block. Each context needs different escaping and payload strategy.<br><br>
+        <strong>Lab 7:</strong> HTML Attribute Context XSS <a href="labs/lab7.html">(Open Lab)</a><br>
+        <strong>Lab 8:</strong> JavaScript Context Injection <a href="labs/lab8.html">(Open Lab)</a><br>
+        <em>Writeup:</em> Learn how escaping affects execution depending on where the script appears in the HTML or JS structure.
+      </li>
     </ul>
   </section>
 
   <section class="course-section">
-    <h2>🧪 Interactive Labs (Click to Open)</h2>
+    <h2>🧪 Labs (Click to Open)</h2>
     <ul>
       <li><a href="labs/lab1.html">Lab 1 - Reflected XSS in Search</a></li>
-      <li><a href="labs/lab2.html">Lab 2 - XSS via Image OnError</a></li>
-      <li><a href="labs/lab3.html">Lab 3 - JavaScript URL Injection</a></li>
-      <li><a href="labs/lab4.html">Lab 4 - Input Field Injection</a></li>
-      <li><a href="labs/lab5.html">Lab 5 - InnerHTML Injection</a></li>
-      <li><a href="labs/lab6.html">Lab 6 - Script Block Injection</a></li>
-      <li><a href="labs/lab7.html">Lab 7 - HTML Comment Escape</a></li>
-      <li><a href="labs/lab8.html">Lab 8 - JavaScript Eval Injection</a></li>
-      <li><a href="labs/lab9.html">Lab 9 - Form Action Injection</a></li>
-      <li><a href="labs/lab10.html">Lab 10 - Payload Obfuscation</a></li>
+      <li><a href="labs/lab2.html">Lab 2 - Reflected XSS in Form Action</a></li>
+      <li><a href="labs/lab3.html">Lab 3 - Stored XSS via Comment</a></li>
+      <li><a href="labs/lab4.html">Lab 4 - Stored XSS in Profile Bio</a></li>
+      <li><a href="labs/lab5.html">Lab 5 - DOM XSS using location.hash</a></li>
+      <li><a href="labs/lab6.html">Lab 6 - DOM XSS via innerHTML</a></li>
+      <li><a href="labs/lab7.html">Lab 7 - Attribute Injection</a></li>
+      <li><a href="labs/lab8.html">Lab 8 - JavaScript Context Injection</a></li>
     </ul>
   </section>
 
@@ -68,6 +169,7 @@
       <li><a href="challenges/challenge10.html">Challenge 10 - Blind XSS Discovery</a></li>
     </ul>
   </section>
+
 
   <script>
     document.querySelector('.menu-toggle').addEventListener('click', () => {
