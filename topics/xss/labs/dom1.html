@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Hackversity - Lab 7: DOM XSS - Fragment Injection</title>
+  <style>
+    body {
+      background-color: #0d0d0d;
+      color: #00ff00;
+      font-family: 'Courier New', Courier, monospace;
+      padding: 0;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    nav {
+      background-color: #001100;
+      padding: 15px 30px;
+      font-size: 1.5rem;
+      font-weight: bold;
+      border-bottom: 2px solid #00ff00;
+    }
+    header {
+      padding: 30px;
+      flex-shrink: 0;
+    }
+    h1 {
+      margin: 0 0 10px;
+    }
+    form {
+      margin-top: 20px;
+    }
+    input[type="text"] {
+      width: 320px;
+      padding: 10px;
+      font-size: 1rem;
+      background-color: #000;
+      border: 2px solid #00ff00;
+      color: #00ff00;
+      font-family: monospace;
+      border-radius: 3px;
+    }
+    input[type="submit"] {
+      padding: 10px 20px;
+      font-size: 1rem;
+      background-color: #001100;
+      border: 2px solid #00ff00;
+      color: #00ff00;
+      cursor: pointer;
+      font-family: monospace;
+      margin-left: 12px;
+      border-radius: 3px;
+      transition: background-color 0.3s ease;
+    }
+    input[type="submit"]:hover {
+      background-color: #003300;
+    }
+    main {
+      padding: 0 30px 40px;
+      flex-grow: 1;
+    }
+    .result {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+    .explanation {
+      max-width: 700px;
+      font-size: 1rem;
+      margin-top: 20px;
+      line-height: 1.5;
+      border: 1px solid #004400;
+      padding: 20px;
+      background-color: #001100;
+      border-radius: 5px;
+    }
+    .flag {
+      margin-top: 30px;
+      padding: 15px;
+      background-color: #111111;
+      border: 2px dashed #00ff00;
+      color: #00ff00;
+      font-weight: bold;
+      font-size: 1.2rem;
+      display: none;
+      max-width: 700px;
+      border-radius: 5px;
+    }
+    footer {
+      padding: 20px 30px;
+      font-size: 0.9rem;
+      color: #ff0000;
+      background-color: #001100;
+      border-top: 2px solid #00ff00;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+
+<nav>Hackversity</nav>
+
+<header>
+  <h1>🧪 Lab 7: DOM XSS - Fragment Injection</h1>
+  <form onsubmit="handleFragmentInjection(event)">
+    <input type="text" id="nameInput" placeholder="Enter your name..." />
+    <input type="submit" value="Submit" />
+  </form>
+</header>
+
+<main>
+  <div id="output">
+    <p class="result">Welcome, guest!</p>
+  </div>
+
+  <div class="explanation">
+    <h2>About this Lab:</h2>
+    <p>
+      This page demonstrates a <strong>DOM-based XSS vulnerability</strong> using the URL fragment/hash.
+      When the form is submitted, the input is used to update the URL hash and is injected into the DOM <em>without sanitization</em>.
+    </p>
+    <p>
+      <strong>Goal:</strong> Inject a script that triggers an alert. Once successful, the flag will appear.
+    </p>
+    <p>
+      <strong>Example Payload:</strong>
+      <br />
+      <code>&lt;script&gt;alert(1)&lt;/script&gt;</code>
+    </p>
+    <p>
+      <em>Important:</em> This is for educational use only. Avoid these practices in real-world applications.
+    </p>
+  </div>
+
+  <div id="flag" class="flag">
+    🏴 Flag: hackversity{dom_xss_fragment_success}
+  </div>
+</main>
+
+<footer>
+  ⚠️ Warning: This page is intentionally vulnerable to demonstrate DOM XSS.
+</footer>
+
+<script>
+  function handleFragmentInjection(event) {
+    event.preventDefault();
+    const input = document.getElementById('nameInput').value;
+    window.location.hash = 'name=' + encodeURIComponent(input);
+    location.reload();
+  }
+
+  const outputDiv = document.getElementById('output');
+  const flagDiv = document.getElementById('flag');
+  const hash = window.location.hash;
+
+  if (hash && hash.includes('name=')) {
+    const nameValue = decodeURIComponent(hash.split('name=')[1]);
+    // Vulnerable DOM injection
+    outputDiv.innerHTML = `<p class="result">Welcome, <strong>${nameValue}</strong>!</p>`;
+
+    if (/alert\s*\(/i.test(nameValue)) {
+      setTimeout(() => {
+        flagDiv.style.display = 'block';
+      }, 800);
+    } else {
+      flagDiv.style.display = 'none';
+    }
+  }
+</script>
+
+</body>
+</html>
