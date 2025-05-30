@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Lab 1: Reflected XSS - Basic Payload</title>
   <style>
     body {
@@ -15,17 +15,6 @@
       color: #00ff00;
     }
 
-    p, code, pre {
-      color: #00ff00;
-    }
-
-    pre {
-      background-color: #001100;
-      padding: 10px;
-      border-radius: 5px;
-      overflow-x: auto;
-    }
-
     a {
       color: #00ff00;
       text-decoration: underline;
@@ -35,24 +24,12 @@
       color: #ff3300;
     }
 
-    input[type="text"] {
-      width: 80%;
-      padding: 8px;
-      background-color: #000;
-      color: #0f0;
-      border: 1px solid #0f0;
-      font-family: monospace;
-      margin-bottom: 10px;
-    }
-
-    button {
-      padding: 8px 12px;
-      background-color: #0f0;
-      color: #000;
-      font-weight: bold;
-      border: none;
-      cursor: pointer;
-      margin-left: 10px;
+    pre {
+      background-color: #001100;
+      padding: 10px;
+      border-radius: 5px;
+      overflow-x: auto;
+      color: #00ff00;
     }
 
     #output {
@@ -68,6 +45,33 @@
 
     .warning {
       color: #ff3300;
+      font-weight: bold;
+      margin-top: 30px;
+    }
+
+    form {
+      margin-top: 20px;
+    }
+
+    input[type="text"] {
+      padding: 8px;
+      background-color: #001100;
+      color: #00ff00;
+      border: 1px solid #00ff00;
+      width: 300px;
+    }
+
+    input[type="submit"] {
+      padding: 8px 16px;
+      background-color: #002200;
+      color: #00ff00;
+      border: 1px solid #00ff00;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #004400;
     }
   </style>
 </head>
@@ -76,33 +80,31 @@
 
   <h3>🔍 What is Reflected XSS?</h3>
   <p>
-    Reflected Cross-Site Scripting (XSS) occurs when user-supplied data in HTTP requests is immediately included in the page’s response without proper validation or escaping.
-    Attackers can craft malicious URLs that execute JavaScript code in the victim’s browser when visited.
+    Reflected XSS happens when user input from a form or URL is directly reflected back on the page without validation or encoding.
+    This lab demonstrates how such a reflection can lead to a script injection vulnerability.
   </p>
 
   <h3>🎯 Objective:</h3>
-  <p>
-    Try injecting a payload using JavaScript such as:
-  </p>
-  <pre><code>&lt;script&gt;alert('XSS')&lt;/script&gt;</code></pre>
-  <p>
-    or shorter payloads like:
-  </p>
-  <pre><code>&lt;img src=x onerror=alert('XSS')&gt;</code></pre>
+  <p>Inject a script payload into the input field and submit to trigger an XSS alert. Try this payload:</p>
+  <pre><code><script>alert('XSS')</script></code></pre>
 
-  <h3>💻 Try a Payload Below:</h3>
-  <input type="text" id="xssInput" placeholder="Type your payload here" />
-  <button onclick="runPayload()">Run Payload</button>
+  <form method="GET">
+    <label for="q">Search:</label>
+    <input type="text" name="q" id="q" placeholder="Type something...">
+    <input type="submit" value="Submit">
+  </form>
 
-  <h3>📜 Reflected Output:</h3>
-  <div id="output">(Output will appear here)</div>
+  <h3>📜 Output:</h3>
+  <div id="output">(Waiting for input...)</div>
 
-  <p class="warning"><strong>⚠️ Warning:</strong> This is a simulated vulnerability. In real applications, always sanitize and escape user input properly!</p>
+  <p class="warning">⚠️ This page is intentionally vulnerable for educational use only. Never reflect unsanitized input!</p>
 
   <script>
-    function runPayload() {
-      const payload = document.getElementById('xssInput').value;
-      document.getElementById('output').innerHTML = payload;
+    // Extract 'q' parameter from URL
+    const params = new URLSearchParams(window.location.search);
+    const q = params.get('q');
+    if (q) {
+      document.getElementById('output').innerHTML = q;
     }
   </script>
 </body>
