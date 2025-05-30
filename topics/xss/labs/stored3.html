@@ -143,36 +143,34 @@
   function postMessage() {
     const msg = document.getElementById('msg').value;
     let messages = JSON.parse(localStorage.getItem('messages') || '[]');
-    messages.push(msg);
+    messages.push({ text: msg, time: Date.now() });
     localStorage.setItem('messages', JSON.stringify(messages));
-    sessionStorage.setItem('newPayload', msg); // Track exact new message
-    location.reload(); // Reload the page to simulate stored XSS trigger
+    sessionStorage.setItem('lastPostedTime', Date.now().toString());
+    location.reload();
   }
 
   function loadMessages() {
     let messages = JSON.parse(localStorage.getItem('messages') || '[]');
-    const newPayload = sessionStorage.getItem('newPayload');
+    const lastPostedTime = parseInt(sessionStorage.getItem('lastPostedTime') || '0');
     board.innerHTML = '';
 
     messages.forEach(m => {
       const div = document.createElement('div');
       div.className = 'message';
-      div.innerHTML = m;
+      div.innerHTML = m.text;
       board.appendChild(div);
 
-      // Show flag only if this is the exact message that was just posted and it contains an alert()
-      if (newPayload && m === newPayload && /alert\s*\(/i.test(m)) {
+      // Show flag only for the newly posted message and only once
+      if (m.time === lastPostedTime && /<script.*?>.*?alert\s*\(.*?\)<\/script>/i.test(m.text)) {
         setTimeout(() => flag.style.display = 'block', 500);
       }
     });
 
-    // Clear the session state
-    sessionStorage.removeItem('newPayload');
+    sessionStorage.removeItem('lastPostedTime');
   }
 
   window.onload = loadMessages;
 </script>
-
 
 </body>
 </html>
