@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>XSS Course | Hackversity</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-brand">HACKVERSITY</div>
+    <button class="menu-toggle">☰</button>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../bugbounty.html">Back to Bug Bounty</a></li>
+    </ul>
+  </nav>
+
+  <header class="course-header">
+    <h1>💉 XSS (Cross-Site Scripting) Full Course</h1>
+    <p>Learn XSS from beginner to expert, with labs and real-world challenges.</p>
+  </header>
+
+  <section class="course-section">
+    <h2>📅 4-Week Learning Path</h2>
+    <div class="grid">
+      <a href="xss/week1.html" class="card">📘 Week 1: Basics, Context & Types</a>
+      <a href="xss/week2.html" class="card">📗 Week 2: HTML, JS Context & Payloads</a>
+      <a href="xss/week3.html" class="card">🧠 Week 3: DOM XSS, Obfuscation & Bypass</a>
+      <a href="xss/week4.html" class="card">🎯 Week 4: Advanced Topics + Real-World Labs</a>
+    </div>
+  </section>
+
+  <script>
+    document.querySelector('.menu-toggle').addEventListener('click', () => {
+      document.querySelector('.nav-links').classList.toggle('active');
+    });
+  </script>
+</body>
+</html>
