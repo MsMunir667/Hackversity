@@ -1,87 +1,173 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Hackversity Search</title>
+  <meta charset="UTF-8" />
+  <title>Hackversity - Lab 1: Reflected XSS</title>
   <style>
     body {
       background-color: #0d0d0d;
       color: #00ff00;
       font-family: 'Courier New', Courier, monospace;
-      padding: 40px;
+      padding: 0;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
-
+    nav {
+      background-color: #001100;
+      padding: 15px 30px;
+      font-size: 1.5rem;
+      font-weight: bold;
+      border-bottom: 2px solid #00ff00;
+    }
+    header {
+      padding: 30px;
+      flex-shrink: 0;
+    }
     h1 {
-      color: #00ff00;
+      margin: 0 0 10px;
     }
-
     form {
-      margin-top: 20px;
+      margin-bottom: 20px;
     }
-
     input[type="text"] {
+      width: 320px;
       padding: 10px;
-      width: 400px;
-      border: 1px solid #00ff00;
+      font-size: 1rem;
       background-color: #000;
+      border: 2px solid #00ff00;
       color: #00ff00;
+      font-family: monospace;
+      border-radius: 3px;
     }
-
     input[type="submit"] {
       padding: 10px 20px;
-      border: 1px solid #00ff00;
+      font-size: 1rem;
       background-color: #001100;
+      border: 2px solid #00ff00;
       color: #00ff00;
       cursor: pointer;
+      font-family: monospace;
+      margin-left: 12px;
+      border-radius: 3px;
+      transition: background-color 0.3s ease;
     }
-
     input[type="submit"]:hover {
       background-color: #003300;
     }
-
-    .results {
-      margin-top: 40px;
+    main {
+      padding: 0 30px 40px;
+      flex-grow: 1;
     }
-
-    .warning {
-      margin-top: 50px;
-      color: #ff0000;
+    .result {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
     }
-
-    a {
+    .explanation {
+      max-width: 700px;
+      font-size: 1rem;
+      margin-top: 20px;
+      line-height: 1.5;
+      border: 1px solid #004400;
+      padding: 20px;
+      background-color: #001100;
+      border-radius: 5px;
+    }
+    .flag {
+      margin-top: 30px;
+      padding: 15px;
+      background-color: #111111;
+      border: 2px dashed #00ff00;
       color: #00ff00;
+      font-weight: bold;
+      font-size: 1.2rem;
+      display: none;
+      max-width: 700px;
+      border-radius: 5px;
     }
-
-    a:hover {
+    footer {
+      padding: 20px 30px;
+      font-size: 0.9rem;
       color: #ff0000;
+      background-color: #001100;
+      border-top: 2px solid #00ff00;
+      flex-shrink: 0;
     }
   </style>
 </head>
 <body>
 
-  <h1>🔍 Hackversity Search</h1>
+<nav>Hackversity</nav>
 
+<header>
+  <h1>🧪 Lab 1: Reflected XSS - Basic Payload</h1>
   <form method="GET" action="">
-    <label for="q">Search:</label>
-    <input type="text" name="q" id="q" placeholder="Search something...">
-    <input type="submit" value="Go">
+    <input type="text" name="q" placeholder="Search..." autocomplete="off" />
+    <input type="submit" value="Search" />
   </form>
+</header>
 
-  <div class="results">
-    <h2>Search Results:</h2>
-    <p id="search-result">(Your search will appear here)</p>
+<main>
+  <div id="output">
+    <p class="result">No search query submitted.</p>
   </div>
 
-  <p class="warning">⚠️ This site is intentionally vulnerable to reflected XSS attacks. Do not deploy on a live server.</p>
+  <div class="explanation">
+    <h2>About this Lab:</h2>
+    <p>
+      This page contains a deliberate <strong>Reflected Cross-Site Scripting (XSS)</strong> vulnerability. When you submit the search form, your input is reflected back in the search results <em>without any filtering or sanitization</em>.
+    </p>
+    <p>
+      If you inject a malicious payload like <code>&lt;script&gt;alert('XSS')&lt;/script&gt;</code> into the search box and submit it, the script will execute in your browser, demonstrating how dangerous reflected XSS vulnerabilities can be.
+    </p>
+    <p>
+      <strong>Goal:</strong> Exploit this vulnerability by injecting a JavaScript payload that triggers an alert box. Upon successful exploitation, you will see a flag below the results.
+    </p>
+    <p>
+      <strong>Example Payload:</strong>
+      <br />
+      <code>&lt;script&gt;alert('XSS')&lt;/script&gt;</code>
+    </p>
+    <p>
+      <em>Important:</em> This vulnerability exists for educational purposes only. Never deploy such code in production.
+    </p>
+  </div>
 
-  <script>
-    const params = new URLSearchParams(window.location.search);
-    if (params.has('q')) {
-      const q = params.get('q');
-      // VULNERABLE: Direct reflection of unsanitized input
-      document.getElementById('search-result').innerHTML = q;
+  <div id="flag" class="flag">
+    🏴 Flag: hackversity{reflected_xss_mastered}
+  </div>
+</main>
+
+<footer>
+  ⚠️ Warning: This page is intentionally vulnerable to demonstrate Reflected XSS.
+</footer>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const outputDiv = document.getElementById('output');
+  const flagDiv = document.getElementById('flag');
+
+  if (params.has('q')) {
+    const userInput = params.get('q');
+    // Vulnerable reflection - no sanitization!
+    outputDiv.innerHTML = `
+      <p class="result">Search results for: <strong>${userInput}</strong></p>
+      <p>(Pretend these are search results...)</p>
+    `;
+
+    // Detect simple XSS alert payload to reveal flag
+    // (Very naive detection for demo only)
+    if (/alert\s*\(/i.test(userInput)) {
+      // Show flag after short delay to simulate success
+      setTimeout(() => {
+        flagDiv.style.display = 'block';
+      }, 800);
+    } else {
+      flagDiv.style.display = 'none';
     }
-  </script>
+  }
+</script>
 
 </body>
 </html>
