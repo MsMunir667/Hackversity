@@ -145,29 +145,34 @@
     let messages = JSON.parse(localStorage.getItem('messages') || '[]');
     messages.push(msg);
     localStorage.setItem('messages', JSON.stringify(messages));
-    sessionStorage.setItem('justPosted', 'true');
-    loadMessages();
+    sessionStorage.setItem('newPayload', msg); // Track exact new message
+    location.reload(); // Reload the page to simulate stored XSS trigger
   }
 
   function loadMessages() {
     let messages = JSON.parse(localStorage.getItem('messages') || '[]');
-    const justPosted = sessionStorage.getItem('justPosted') === 'true';
+    const newPayload = sessionStorage.getItem('newPayload');
     board.innerHTML = '';
+
     messages.forEach(m => {
       const div = document.createElement('div');
       div.className = 'message';
       div.innerHTML = m;
       board.appendChild(div);
 
-      if (justPosted && /alert\s*\(/i.test(m)) {
+      // Show flag only if this is the exact message that was just posted and it contains an alert()
+      if (newPayload && m === newPayload && /alert\s*\(/i.test(m)) {
         setTimeout(() => flag.style.display = 'block', 500);
       }
     });
-    sessionStorage.removeItem('justPosted');
+
+    // Clear the session state
+    sessionStorage.removeItem('newPayload');
   }
 
   window.onload = loadMessages;
 </script>
+
 
 </body>
 </html>
