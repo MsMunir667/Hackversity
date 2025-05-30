@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Hackversity - Lab 5: Stored XSS - User Bio</title>
+  <style>
+    body {
+      background-color: #0d0d0d;
+      color: #00ff00;
+      font-family: 'Courier New', Courier, monospace;
+      margin: 0;
+      padding: 0;
+    }
+    nav {
+      background-color: #001100;
+      padding: 15px 30px;
+      font-size: 1.5rem;
+      font-weight: bold;
+      border-bottom: 2px solid #00ff00;
+    }
+    main {
+      padding: 30px;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    form {
+      margin-bottom: 30px;
+    }
+    input[type="text"], textarea {
+      width: 100%;
+      padding: 10px;
+      background-color: #000;
+      border: 2px solid #00ff00;
+      color: #00ff00;
+      font-family: monospace;
+      border-radius: 3px;
+      margin-bottom: 10px;
+    }
+    input[type="submit"] {
+      padding: 10px 20px;
+      background-color: #001100;
+      border: 2px solid #00ff00;
+      color: #00ff00;
+      cursor: pointer;
+      border-radius: 3px;
+    }
+    .profile {
+      margin-top: 30px;
+      padding: 20px;
+      background-color: #111111;
+      border: 1px solid #004400;
+      border-radius: 5px;
+      max-width: 600px;
+    }
+    .flag {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #111111;
+      border: 2px dashed #00ff00;
+      color: #00ff00;
+      font-weight: bold;
+      display: none;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <nav>Hackversity</nav>
+  <main>
+    <h1>👤 Lab 5: Stored XSS - User Bio Field</h1>
+    <form method="POST" action="" id="bioForm">
+      <label for="name">Your Name:</label>
+      <input type="text" id="name" name="name" required />
+      <label for="bio">Your Bio:</label>
+      <textarea id="bio" name="bio" rows="4" required></textarea>
+      <input type="submit" value="Save Profile" />
+    </form>
+
+    <div class="profile" id="profileDisplay">
+      <h2>User Profile</h2>
+      <p><strong>Name:</strong> <span id="displayName">(none)</span></p>
+      <p><strong>Bio:</strong> <span id="displayBio">(no bio)</span></p>
+    </div>
+
+    <div class="flag" id="flag">
+      🏴 Flag: hackversity{stored_xss_bio_success}
+    </div>
+  </main>
+
+  <script>
+    const form = document.getElementById('bioForm');
+    const nameEl = document.getElementById('displayName');
+    const bioEl = document.getElementById('displayBio');
+    const flag = document.getElementById('flag');
+
+    // Load saved profile
+    const savedName = localStorage.getItem('name');
+    const savedBio = localStorage.getItem('bio');
+
+    if (savedName && savedBio) {
+      nameEl.innerText = savedName;
+      bioEl.innerHTML = savedBio; // ❌ Intentional vulnerability
+
+      if (/alert\s*\(/i.test(savedBio)) {
+        setTimeout(() => {
+          flag.style.display = 'block';
+        }, 800);
+      }
+    }
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const name = form.name.value;
+      const bio = form.bio.value;
+
+      localStorage.setItem('name', name);
+      localStorage.setItem('bio', bio);
+
+      location.reload();
+    });
+  </script>
+</body>
+</html>
