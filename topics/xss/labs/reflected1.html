@@ -86,9 +86,9 @@
 
   <h3>🎯 Objective:</h3>
   <p>Inject a script payload into the input field and submit to trigger an XSS alert. Try this payload:</p>
-  <pre><code><script>alert('XSS')</script></code></pre>
+  <pre><code>&lt;script&gt;alert('XSS')&lt;/script&gt;</code></pre>
 
-  <form method="GET">
+  <form method="GET" action="">
     <label for="q">Search:</label>
     <input type="text" name="q" id="q" placeholder="Type something...">
     <input type="submit" value="Submit">
@@ -97,14 +97,18 @@
   <h3>📜 Output:</h3>
   <div id="output">(Waiting for input...)</div>
 
-  <p class="warning">⚠️ This page is intentionally vulnerable for educational use only. Never reflect unsanitized input!</p>
+  <p class="warning">⚠️ This page is intentionally vulnerable for educational use only. Never reflect unsanitized input in production!</p>
 
   <script>
-    // Extract 'q' parameter from URL
+    const form = document.querySelector('form');
+    const output = document.getElementById('output');
+
+    // Only reflect input after form submission
     const params = new URLSearchParams(window.location.search);
-    const q = params.get('q');
-    if (q) {
-      document.getElementById('output').innerHTML = q;
+    if (params.has('q')) {
+      const input = params.get('q');
+      // Vulnerable output to simulate XSS reflection
+      output.innerHTML = input;
     }
   </script>
 </body>
