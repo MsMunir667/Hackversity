@@ -127,8 +127,8 @@
     <p><strong>Goal:</strong> Trigger an XSS using <code>location.href</code>. A flag will be revealed upon success.</p>
   </div>
 
-  <div id="flag" class="flag">
-    🏴 Flag: hackversity{location_href_xss_success}
+  <div id="flag" class="flag" data-flag="hackversity{location_href_xss_success}">
+    <!-- Flag will be revealed here dynamically -->
   </div>
 </main>
 
@@ -147,9 +147,13 @@
     output.innerHTML = `<p class="result">You entered: <strong>${value}</strong></p>`;
 
     if (/alert\s*\(/i.test(value)) {
-      setTimeout(() => flag.style.display = 'block', 800);
+      setTimeout(() => {
+        flag.innerText = `🏴 Flag: ${flag.getAttribute('data-flag')}`;
+        flag.style.display = 'block';
+      }, 800);
     } else {
       flag.style.display = 'none';
+      flag.innerText = '';
     }
   }
 </script>
