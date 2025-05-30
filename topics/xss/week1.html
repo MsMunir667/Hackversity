@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Week 1 - XSS Basics & Context</title>
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-brand">HACKVERSITY</div>
+    <button class="menu-toggle">☰</button>
+    <ul class="nav-links">
+      <li><a href="../../index.html">Home</a></li>
+      <li><a href="../xss.html">Back to XSS Course</a></li>
+    </ul>
+  </nav>
+
+  <header class="course-header">
+    <h1>📘 Week 1: XSS Basics & Context</h1>
+    <p>Dive deep into understanding Cross-Site Scripting, its mechanics, contexts, and real-world application vulnerabilities.</p>
+  </header>
+
+  <section class="course-section">
+    <h2>📖 Topics & Details</h2>
+    <ul>
+      <li><strong>What is XSS?</strong> - Cross-Site Scripting (XSS) is a type of vulnerability that allows attackers to inject malicious scripts into content from otherwise trusted websites. It exploits the trust a user has in a website.</li>
+      <li><strong>Types of XSS:</strong>
+        <ul>
+          <li><strong>Reflected:</strong> Script is reflected off a web server, such as in an error message or search result.</li>
+          <li><strong>Stored:</strong> Script is permanently stored on the target server (e.g., in a database).</li>
+          <li><strong>DOM-based:</strong> The vulnerability exists in client-side code rather than server-side.</li>
+        </ul>
+      </li>
+      <li><strong>Payload Basics:</strong> Learn how to use <code>alert()</code> for testing, and inject via tags like <code>script</code>, <code>img</code>, <code>svg</code>.</li>
+      <li><strong>Contextual Execution:</strong> The execution of XSS depends on the context: HTML body, attribute, script, or URL — each reacts differently to payloads.</li>
+    </ul>
+  </section>
+
+  <section class="course-section">
+    <h2>🧪 Interactive Labs (Click to Open)</h2>
+    <ul>
+      <li><a href="labs/lab1.html">Lab 1 - Reflected XSS in Search</a></li>
+      <li><a href="labs/lab2.html">Lab 2 - XSS via Image OnError</a></li>
+      <li><a href="labs/lab3.html">Lab 3 - JavaScript URL Injection</a></li>
+      <li><a href="labs/lab4.html">Lab 4 - Input Field Injection</a></li>
+      <li><a href="labs/lab5.html">Lab 5 - InnerHTML Injection</a></li>
+      <li><a href="labs/lab6.html">Lab 6 - Script Block Injection</a></li>
+      <li><a href="labs/lab7.html">Lab 7 - HTML Comment Escape</a></li>
+      <li><a href="labs/lab8.html">Lab 8 - JavaScript Eval Injection</a></li>
+      <li><a href="labs/lab9.html">Lab 9 - Form Action Injection</a></li>
+      <li><a href="labs/lab10.html">Lab 10 - Payload Obfuscation</a></li>
+    </ul>
+  </section>
+
+  <section class="course-section">
+    <h2>🚩 Challenges (Try & Capture Flag)</h2>
+    <ul>
+      <li><a href="challenges/challenge1.html">Challenge 1 - Reflected URL XSS</a></li>
+      <li><a href="challenges/challenge2.html">Challenge 2 - Comment Field XSS</a></li>
+      <li><a href="challenges/challenge3.html">Challenge 3 - Stored XSS</a></li>
+      <li><a href="challenges/challenge4.html">Challenge 4 - DOM XSS</a></li>
+      <li><a href="challenges/challenge5.html">Challenge 5 - XSS via Input Autocomplete</a></li>
+      <li><a href="challenges/challenge6.html">Challenge 6 - Script Context Bypass</a></li>
+      <li><a href="challenges/challenge7.html">Challenge 7 - JSON Response Injection</a></li>
+      <li><a href="challenges/challenge8.html">Challenge 8 - JavaScript Event Handler</a></li>
+      <li><a href="challenges/challenge9.html">Challenge 9 - Obfuscated Payload</a></li>
+      <li><a href="challenges/challenge10.html">Challenge 10 - Blind XSS Discovery</a></li>
+    </ul>
+  </section>
+
+  <script>
+    document.querySelector('.menu-toggle').addEventListener('click', () => {
+      document.querySelector('.nav-links').classList.toggle('active');
+    });
+  </script>
+</body>
+</html>
