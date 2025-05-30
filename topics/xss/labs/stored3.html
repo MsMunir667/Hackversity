@@ -145,26 +145,27 @@
     let messages = JSON.parse(localStorage.getItem('messages') || '[]');
     messages.push(msg);
     localStorage.setItem('messages', JSON.stringify(messages));
-    loadMessages(); // Instead of reloading the page
+    sessionStorage.setItem('justPosted', 'true');
+    loadMessages();
   }
 
   function loadMessages() {
     let messages = JSON.parse(localStorage.getItem('messages') || '[]');
+    const justPosted = sessionStorage.getItem('justPosted') === 'true';
     board.innerHTML = '';
     messages.forEach(m => {
       const div = document.createElement('div');
       div.className = 'message';
-      div.innerHTML = m; // Vulnerable to stored XSS
+      div.innerHTML = m;
       board.appendChild(div);
 
-      // Check if payload includes alert() to trigger flag
-      if (/alert\s*\(/i.test(m)) {
+      if (justPosted && /alert\s*\(/i.test(m)) {
         setTimeout(() => flag.style.display = 'block', 500);
       }
     });
+    sessionStorage.removeItem('justPosted');
   }
 
-  // Load messages on initial load
   window.onload = loadMessages;
 </script>
 
