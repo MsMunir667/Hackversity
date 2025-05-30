@@ -2,51 +2,17 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Lab 1: Reflected XSS - Basic Payload</title>
+  <title>Hackversity Search</title>
   <style>
     body {
       background-color: #0d0d0d;
       color: #00ff00;
       font-family: 'Courier New', Courier, monospace;
-      padding: 20px;
+      padding: 40px;
     }
 
-    h1, h2, h3 {
+    h1 {
       color: #00ff00;
-    }
-
-    a {
-      color: #00ff00;
-      text-decoration: underline;
-    }
-
-    a:hover {
-      color: #ff3300;
-    }
-
-    pre {
-      background-color: #001100;
-      padding: 10px;
-      border-radius: 5px;
-      overflow-x: auto;
-      color: #00ff00;
-    }
-
-    #output {
-      margin-top: 20px;
-      padding: 15px;
-      background-color: #001100;
-      border: 1px solid #00ff00;
-      border-radius: 5px;
-      min-height: 50px;
-      white-space: pre-wrap;
-      word-break: break-word;
-    }
-
-    .warning {
-      color: #ff3300;
-      font-weight: bold;
-      margin-top: 30px;
     }
 
     form {
@@ -54,62 +20,68 @@
     }
 
     input[type="text"] {
-      padding: 8px;
-      background-color: #001100;
-      color: #00ff00;
+      padding: 10px;
+      width: 400px;
       border: 1px solid #00ff00;
-      width: 300px;
+      background-color: #000;
+      color: #00ff00;
     }
 
     input[type="submit"] {
-      padding: 8px 16px;
-      background-color: #002200;
-      color: #00ff00;
+      padding: 10px 20px;
       border: 1px solid #00ff00;
+      background-color: #001100;
+      color: #00ff00;
       cursor: pointer;
-      margin-left: 10px;
     }
 
     input[type="submit"]:hover {
-      background-color: #004400;
+      background-color: #003300;
+    }
+
+    .results {
+      margin-top: 40px;
+    }
+
+    .warning {
+      margin-top: 50px;
+      color: #ff0000;
+    }
+
+    a {
+      color: #00ff00;
+    }
+
+    a:hover {
+      color: #ff0000;
     }
   </style>
 </head>
 <body>
-  <h1>🧪 Lab 1: Reflected XSS - Basic Payload</h1>
 
-  <h3>🔍 What is Reflected XSS?</h3>
-  <p>
-    Reflected XSS happens when user input from a form or URL is directly reflected back on the page without validation or encoding.
-    This lab demonstrates how such a reflection can lead to a script injection vulnerability.
-  </p>
-
-  <h3>🎯 Objective:</h3>
-  <p>Inject a script payload into the input field and submit to trigger an XSS alert. Try this payload:</p>
-  <pre><code>&lt;script&gt;alert('XSS')&lt;/script&gt;</code></pre>
+  <h1>🔍 Hackversity Search</h1>
 
   <form method="GET" action="">
     <label for="q">Search:</label>
-    <input type="text" name="q" id="q" placeholder="Type something...">
-    <input type="submit" value="Submit">
+    <input type="text" name="q" id="q" placeholder="Search something...">
+    <input type="submit" value="Go">
   </form>
 
-  <h3>📜 Output:</h3>
-  <div id="output">(Waiting for input...)</div>
+  <div class="results">
+    <h2>Search Results:</h2>
+    <p id="search-result">(Your search will appear here)</p>
+  </div>
 
-  <p class="warning">⚠️ This page is intentionally vulnerable for educational use only. Never reflect unsanitized input in production!</p>
+  <p class="warning">⚠️ This site is intentionally vulnerable to reflected XSS attacks. Do not deploy on a live server.</p>
 
   <script>
-    const form = document.querySelector('form');
-    const output = document.getElementById('output');
-
-    // Only reflect input after form submission
     const params = new URLSearchParams(window.location.search);
     if (params.has('q')) {
-      const input = params.get('q');
-      // Vulnerable output to simulate XSS reflection
-      output.innerHTML = input;
+      const q = params.get('q');
+      // VULNERABLE: Direct reflection of unsanitized input
+      document.getElementById('search-result').innerHTML = q;
     }
   </script>
+
 </body>
 </html>
