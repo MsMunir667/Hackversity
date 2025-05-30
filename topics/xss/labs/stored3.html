@@ -140,14 +140,18 @@
   const board = document.getElementById('messageBoard');
   const flag = document.getElementById('flag');
 
-  function showFlag() {
-    flag.style.display = 'block';
-  }
+  // Save original alert function
+  const originalAlert = window.alert;
+
+  // Override alert function to show flag and then run original alert
+  window.alert = function(message) {
+    flag.style.display = 'block';   // show flag whenever alert is called
+    originalAlert(message);
+  };
 
   function postMessage() {
     const msg = document.getElementById('msg').value.trim();
     if (!msg) {
-      // No alert here, just ignore empty message silently
       return;
     }
     let messages = JSON.parse(localStorage.getItem('messages') || '[]');
@@ -162,8 +166,7 @@
     board.innerHTML = '';
 
     messages.forEach(m => {
-      if (!m.text) return; // skip empty
-
+      if (!m.text) return;
       const div = document.createElement('div');
       div.className = 'message';
       div.innerHTML = m.text;
@@ -173,6 +176,7 @@
 
   window.onload = loadMessages;
 </script>
+
 
 </body>
 </html>
