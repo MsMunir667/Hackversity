@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Hackversity - Lab 8: DOM XSS - Location.href</title>
+  <style>
+    body {
+      background-color: #0d0d0d;
+      color: #00ff00;
+      font-family: 'Courier New', Courier, monospace;
+      padding: 0;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    nav {
+      background-color: #001100;
+      padding: 15px 30px;
+      font-size: 1.5rem;
+      font-weight: bold;
+      border-bottom: 2px solid #00ff00;
+    }
+    header {
+      padding: 30px;
+      flex-shrink: 0;
+    }
+    h1 {
+      margin: 0 0 10px;
+    }
+    form {
+      margin-top: 10px;
+    }
+    input[type="text"] {
+      width: 320px;
+      padding: 10px;
+      font-size: 1rem;
+      background-color: #000;
+      border: 2px solid #00ff00;
+      color: #00ff00;
+      font-family: monospace;
+      border-radius: 3px;
+    }
+    input[type="submit"] {
+      padding: 10px 20px;
+      font-size: 1rem;
+      background-color: #001100;
+      border: 2px solid #00ff00;
+      color: #00ff00;
+      cursor: pointer;
+      font-family: monospace;
+      margin-left: 12px;
+      border-radius: 3px;
+      transition: background-color 0.3s ease;
+    }
+    input[type="submit"]:hover {
+      background-color: #003300;
+    }
+    main {
+      padding: 0 30px 40px;
+      flex-grow: 1;
+    }
+    .result {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+    .explanation {
+      max-width: 700px;
+      font-size: 1rem;
+      margin-top: 20px;
+      line-height: 1.5;
+      border: 1px solid #004400;
+      padding: 20px;
+      background-color: #001100;
+      border-radius: 5px;
+    }
+    .flag {
+      margin-top: 30px;
+      padding: 15px;
+      background-color: #111111;
+      border: 2px dashed #00ff00;
+      color: #00ff00;
+      font-weight: bold;
+      font-size: 1.2rem;
+      display: none;
+      max-width: 700px;
+      border-radius: 5px;
+    }
+    footer {
+      padding: 20px 30px;
+      font-size: 0.9rem;
+      color: #ff0000;
+      background-color: #001100;
+      border-top: 2px solid #00ff00;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+
+<nav>Hackversity</nav>
+
+<header>
+  <h1>🧪 Lab 8: DOM XSS - Location.href</h1>
+  <form method="GET">
+    <input type="text" name="redirect" placeholder="Type something..." />
+    <input type="submit" value="Go" />
+  </form>
+</header>
+
+<main>
+  <div id="output">
+    <p class="result">No redirect parameter yet.</p>
+  </div>
+
+  <div class="explanation">
+    <h2>About this Lab:</h2>
+    <p>
+      This lab demonstrates <strong>DOM-based XSS</strong> using the <code>location.href</code> JavaScript property.
+      The application reads the URL and reflects it directly into the DOM.
+    </p>
+    <p>
+      Try injecting a payload via the <code>?redirect=</code> query string like:
+      <br />
+      <code>?redirect=&lt;script&gt;alert('xss')&lt;/script&gt;</code>
+    </p>
+    <p><strong>Goal:</strong> Trigger an XSS using <code>location.href</code>. A flag will be revealed upon success.</p>
+  </div>
+
+  <div id="flag" class="flag">
+    🏴 Flag: hackversity{location_href_xss_success}
+  </div>
+</main>
+
+<footer>
+  ⚠️ Warning: This page is intentionally vulnerable to demonstrate DOM-based XSS.
+</footer>
+
+<script>
+  const output = document.getElementById('output');
+  const flag = document.getElementById('flag');
+
+  const href = window.location.href;
+
+  if (href.includes('redirect=')) {
+    const value = decodeURIComponent(href.split('redirect=')[1]);
+    output.innerHTML = `<p class="result">You entered: <strong>${value}</strong></p>`;
+
+    if (/alert\s*\(/i.test(value)) {
+      setTimeout(() => flag.style.display = 'block', 800);
+    } else {
+      flag.style.display = 'none';
+    }
+  }
+</script>
+
+</body>
+</html>
