@@ -145,7 +145,7 @@
     let messages = JSON.parse(localStorage.getItem('messages') || '[]');
     messages.push(msg);
     localStorage.setItem('messages', JSON.stringify(messages));
-    location.reload();
+    loadMessages(); // Instead of reloading the page
   }
 
   function loadMessages() {
@@ -164,7 +164,8 @@
     });
   }
 
-  loadMessages();
+  // Load messages on initial load
+  window.onload = loadMessages;
 </script>
 
 </body>
