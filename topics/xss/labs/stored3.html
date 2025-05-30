@@ -141,11 +141,21 @@
   const flag = document.getElementById('flag');
 
   function postMessage() {
-    const msg = document.getElementById('msg').value;
+    const msg = document.getElementById('msg').value.trim();
+
+    // Prevent empty or undefined messages
+    if (!msg) {
+      alert("Please enter a valid message.");
+      return;
+    }
+
     let messages = JSON.parse(localStorage.getItem('messages') || '[]');
     messages.push({ text: msg, time: Date.now() });
     localStorage.setItem('messages', JSON.stringify(messages));
     sessionStorage.setItem('lastPostedTime', Date.now().toString());
+
+    // Clear textarea before reload
+    document.getElementById('msg').value = '';
     location.reload();
   }
 
@@ -160,17 +170,19 @@
       div.innerHTML = m.text;
       board.appendChild(div);
 
-      // Show flag only for the newly posted message and only once
+      // Show flag only for the newly posted message containing an alert script
       if (m.time === lastPostedTime && /<script.*?>.*?alert\s*\(.*?\)<\/script>/i.test(m.text)) {
         setTimeout(() => flag.style.display = 'block', 500);
       }
     });
 
+    // Clear session marker after displaying flag
     sessionStorage.removeItem('lastPostedTime');
   }
 
   window.onload = loadMessages;
 </script>
+
 
 </body>
 </html>
