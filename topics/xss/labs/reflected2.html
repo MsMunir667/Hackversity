@@ -1,135 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Hackversity Lab 2: Reflected XSS - HTML Injection</title>
+  <meta charset="UTF-8" />
+  <title>Hackversity - Lab 2: Reflected XSS - HTML Injection</title>
   <style>
     body {
       background-color: #0d0d0d;
       color: #00ff00;
       font-family: 'Courier New', Courier, monospace;
-      padding: 40px;
       margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
     nav {
       background-color: #001100;
-      padding: 15px 40px;
-      font-size: 24px;
+      padding: 15px 30px;
+      font-size: 1.5rem;
       font-weight: bold;
-      color: #00ff00;
       border-bottom: 2px solid #00ff00;
-      user-select: none;
     }
-    h1, h2, h3 {
-      color: #00ff00;
+    header {
+      padding: 30px;
     }
-    .container {
-      margin-top: 40px;
-    }
-    .explanation {
-      margin-top: 30px;
-      padding: 20px;
-      background-color: #001100;
-      border-left: 5px solid #00ff00;
-      white-space: pre-wrap;
-      font-size: 14px;
-    }
-    .toggle-btn {
-      margin-top: 20px;
-      padding: 10px 18px;
-      background-color: #001100;
-      border: 1px solid #00ff00;
-      color: #00ff00;
-      cursor: pointer;
-      font-size: 16px;
+    h1 {
+      margin-bottom: 10px;
     }
     form {
-      margin-top: 30px;
+      margin-bottom: 20px;
     }
-    input[type="text"], input[type="submit"] {
+    input[type="text"] {
+      width: 320px;
       padding: 10px;
-      font-size: 16px;
-      border: 1px solid #00ff00;
+      font-size: 1rem;
       background-color: #000;
+      border: 2px solid #00ff00;
       color: #00ff00;
-      outline: none;
+      font-family: monospace;
+      border-radius: 3px;
     }
     input[type="submit"] {
+      padding: 10px 20px;
+      font-size: 1rem;
+      background-color: #001100;
+      border: 2px solid #00ff00;
+      color: #00ff00;
       cursor: pointer;
-      margin-left: 10px;
+      margin-left: 12px;
+      border-radius: 3px;
+    }
+    main {
+      padding: 0 30px 40px;
+      flex-grow: 1;
+    }
+    .explanation {
+      max-width: 700px;
+      font-size: 1rem;
+      margin-top: 20px;
+      line-height: 1.5;
+      border: 1px solid #004400;
+      padding: 20px;
+      background-color: #001100;
+      border-radius: 5px;
+    }
+    .result {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
     }
     .flag {
-      display: none;
       margin-top: 30px;
       padding: 15px;
-      border: 2px dashed #00ff00;
       background-color: #111111;
+      border: 2px dashed #00ff00;
+      color: #00ff00;
       font-weight: bold;
-      font-size: 18px;
+      font-size: 1.2rem;
+      display: none;
+      max-width: 700px;
+      border-radius: 5px;
     }
-    .warning {
-      margin-top: 40px;
+    footer {
+      padding: 20px 30px;
+      font-size: 0.9rem;
       color: #ff0000;
-      font-weight: bold;
+      background-color: #001100;
+      border-top: 2px solid #00ff00;
     }
   </style>
 </head>
 <body>
 
-  <nav>Hackversity</nav>
+<nav>Hackversity</nav>
 
-  <div class="container">
-    <h1>🧪 Lab 2: Reflected XSS - HTML Injection</h1>
+<header>
+  <h1>🧪 Lab 2: Reflected XSS - HTML Injection</h1>
+  <form method="GET" action="">
+    <input type="text" name="query" placeholder="Search or inject HTML..." autocomplete="off" />
+    <input type="submit" value="Submit" />
+  </form>
+</header>
 
-    <h2>🎯 Objective:</h2>
-    <p>Exploit a reflected XSS vulnerability by injecting HTML elements with JavaScript triggers.</p>
+<main>
+  <div id="output">
+    <p class="result">No input provided.</p>
+  </div>
 
-    <button class="toggle-btn" onclick="toggleExplanation()">Show/Hide Exploitation Guide</button>
-    <div id="explanation" class="explanation" style="display:none;">
-&lt;img src=x onerror=alert('XSS')&gt;
-
-&lt;svg/onload=alert('XSS')&gt;
-
-You can inject HTML elements into the response. This lab does not filter or sanitize your input, allowing HTML to be rendered directly.
-    </div>
-
-    <form onsubmit="return testXSS()">
-      <label for="payload">Inject Payload:</label><br>
-      <input type="text" id="payload" placeholder="Try a HTML XSS payload..." required>
-      <input type="submit" value="Submit">
-    </form>
-
-    <div class="flag" id="flag">
-      🎉 Congrats! You successfully exploited the HTML Injection XSS.<br>
-      🏴 Flag: <strong>hackversity{html_injection_mastered}</strong>
-    </div>
-
-    <p class="warning">
-      ⚠️ This page is intentionally vulnerable. Use only for ethical testing and learning.
+  <div class="explanation">
+    <h2>About this Lab:</h2>
+    <p>
+      In this lab, input is reflected back into the page without sanitization, allowing **HTML injection**.
+    </p>
+    <p>
+      Try injecting tags like <code>&lt;b&gt;</code>, <code>&lt;marquee&gt;</code>, or even an <code>&lt;img&gt;</code> with an <code>onerror</code> attribute to trigger JavaScript.
+    </p>
+    <p>
+      <strong>Goal:</strong> Use a payload such as <code>&lt;img src=x onerror=alert('XSS')&gt;</code> to trigger an alert and reveal the flag.
+    </p>
+    <p>
+      <em>Note:</em> &lt;script&gt; tags are blocked by the flag checker in this lab. Try alternative HTML-based JavaScript triggers.
     </p>
   </div>
 
-  <script>
-    function toggleExplanation() {
-      const exp = document.getElementById('explanation');
-      exp.style.display = (exp.style.display === 'none') ? 'block' : 'none';
+  <div id="flag" class="flag">
+    🏴 Flag: hackversity{html_injection_works}
+  </div>
+</main>
+
+<footer>
+  ⚠️ Warning: This lab is intentionally vulnerable. Do not use these techniques on real websites.
+</footer>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const outputDiv = document.getElementById('output');
+  const flagDiv = document.getElementById('flag');
+
+  if (params.has('query')) {
+    const input = params.get('query');
+
+    // Reflect unsanitized input (vulnerable)
+    outputDiv.innerHTML = `
+      <p class="result">Output: <strong>${input}</strong></p>
+      <p>(Injected HTML is rendered below...)</p>
+    `;
+
+    // Check for HTML-based XSS (basic detection)
+    if (/onerror\s*=\s*alert\s*\(/i.test(input) || /<img[^>]+onerror\s*=/i.test(input)) {
+      setTimeout(() => {
+        flagDiv.style.display = 'block';
+      }, 800);
+    } else {
+      flagDiv.style.display = 'none';
     }
-
-    function testXSS() {
-      const payload = document.getElementById('payload').value;
-      const keywords = ['<img', '<svg', 'onerror', 'onload', 'alert(', 'script'];
-      const match = keywords.some(k => payload.toLowerCase().includes(k));
-
-      if (match) {
-        document.getElementById('flag').style.display = 'block';
-      } else {
-        document.getElementById('flag').style.display = 'none';
-        alert('Try a valid HTML injection payload.');
-      }
-
-      return false;
-    }
-  </script>
+  }
+</script>
 
 </body>
 </html>
