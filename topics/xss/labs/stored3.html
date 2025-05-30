@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hackversity - Lab 6: Stored XSS - Message Board</title>
+  <style>
+    body {
+      background-color: #0d0d0d;
+      color: #00ff00;
+      font-family: 'Courier New', Courier, monospace;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    nav {
+      background-color: #001100;
+      padding: 15px 30px;
+      font-size: 1.5rem;
+      font-weight: bold;
+      border-bottom: 2px solid #00ff00;
+    }
+    header {
+      padding: 30px;
+    }
+    main {
+      flex-grow: 1;
+      padding: 0 30px 40px;
+    }
+    h1 {
+      margin-bottom: 10px;
+    }
+    textarea {
+      width: 100%;
+      max-width: 600px;
+      height: 80px;
+      padding: 10px;
+      font-size: 1rem;
+      background-color: #000;
+      border: 2px solid #00ff00;
+      color: #00ff00;
+      font-family: monospace;
+      border-radius: 3px;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      background-color: #001100;
+      border: 2px solid #00ff00;
+      color: #00ff00;
+      cursor: pointer;
+      font-family: monospace;
+      border-radius: 3px;
+    }
+    .messages {
+      margin-top: 30px;
+      max-width: 600px;
+    }
+    .message {
+      background-color: #111;
+      border: 1px solid #004400;
+      padding: 15px;
+      border-radius: 4px;
+      margin-bottom: 15px;
+    }
+    .flag {
+      margin-top: 30px;
+      padding: 15px;
+      background-color: #111111;
+      border: 2px dashed #00ff00;
+      color: #00ff00;
+      font-weight: bold;
+      font-size: 1.2rem;
+      display: none;
+      max-width: 700px;
+      border-radius: 5px;
+    }
+    .explanation {
+      max-width: 700px;
+      font-size: 1rem;
+      margin-top: 20px;
+      line-height: 1.5;
+      border: 1px solid #004400;
+      padding: 20px;
+      background-color: #001100;
+      border-radius: 5px;
+    }
+    footer {
+      padding: 20px 30px;
+      font-size: 0.9rem;
+      color: #ff0000;
+      background-color: #001100;
+      border-top: 2px solid #00ff00;
+    }
+  </style>
+</head>
+<body>
+
+<nav>Hackversity</nav>
+
+<header>
+  <h1>🧪 Lab 6: Stored XSS - Message Board</h1>
+  <p>Leave a message and check if scripts are stored and executed on reload.</p>
+</header>
+
+<main>
+  <textarea id="msg" placeholder="Write your message..."></textarea><br>
+  <button onclick="postMessage()">Post</button>
+
+  <div class="messages" id="messageBoard"></div>
+
+  <div id="flag" class="flag">
+    🏴 Flag: hackversity{stored_xss_triggered}
+  </div>
+
+  <div class="explanation">
+    <h2>About this Lab:</h2>
+    <p>
+      This is a simulated message board where all posted messages are saved using <code>localStorage</code> to mimic a backend database.
+      Your message will be displayed as-is when the page reloads.
+    </p>
+    <p>
+      If you inject a script like <code>&lt;script&gt;alert('XSS')&lt;/script&gt;</code>, it will execute every time the page loads —
+      a classic <strong>Stored XSS</strong> vulnerability.
+    </p>
+    <p>
+      <strong>Goal:</strong> Submit a message that runs JavaScript (such as <code>alert()</code>) when reloaded. If successful, the flag will appear.
+    </p>
+    <p><em>Note:</em> This is a client-side demo using <code>localStorage</code> — in real-world attacks, data is stored on a server and affects all users.</p>
+  </div>
+</main>
+
+<footer>
+  ⚠️ Warning: This is a vulnerable educational lab. Never use such insecure techniques in production environments.
+</footer>
+
+<script>
+  const board = document.getElementById('messageBoard');
+  const flag = document.getElementById('flag');
+
+  function postMessage() {
+    const msg = document.getElementById('msg').value;
+    let messages = JSON.parse(localStorage.getItem('messages') || '[]');
+    messages.push(msg);
+    localStorage.setItem('messages', JSON.stringify(messages));
+    location.reload();
+  }
+
+  function loadMessages() {
+    let messages = JSON.parse(localStorage.getItem('messages') || '[]');
+    board.innerHTML = '';
+    messages.forEach(m => {
+      const div = document.createElement('div');
+      div.className = 'message';
+      div.innerHTML = m; // Vulnerable to stored XSS
+      board.appendChild(div);
+
+      // Check if payload includes alert() to trigger flag
+      if (/alert\s*\(/i.test(m)) {
+        setTimeout(() => flag.style.display = 'block', 500);
+      }
+    });
+  }
+
+  loadMessages();
+</script>
+
+</body>
+</html>
