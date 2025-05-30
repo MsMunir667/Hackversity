@@ -10,96 +10,99 @@
       font-family: 'Courier New', Courier, monospace;
       padding: 20px;
     }
-    h1, h2, h3 { color: #00ff00; }
-    p, pre, code { color: #00ff00; }
+
+    h1, h2, h3 {
+      color: #00ff00;
+    }
+
+    p, code, pre {
+      color: #00ff00;
+    }
+
     pre {
       background-color: #001100;
       padding: 10px;
       border-radius: 5px;
       overflow-x: auto;
     }
-    .flag-box input[type="text"] {
-      background-color: #001100;
-      color: #00ff00;
-      border: 1px solid #00ff00;
-      padding: 8px;
-      width: 300px;
-      font-family: monospace;
-    }
-    .flag-box button {
-      background-color: #004400;
-      color: #00ff00;
-      border: 1px solid #00ff00;
-      padding: 8px 12px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-    .flag-box button:hover {
-      background-color: #00aa00;
-      color: #000000;
-    }
-    #result {
-      margin-top: 10px;
-      font-weight: bold;
-    }
-    #result.success {
-      color: #00ff00;
-    }
-    #result.error {
-      color: #ff3300;
-    }
+
     a {
       color: #00ff00;
       text-decoration: underline;
     }
+
     a:hover {
       color: #ff3300;
     }
-    #vulnerable-output {
-      margin-top: 20px;
+
+    input[type="text"] {
+      width: 80%;
+      padding: 8px;
+      background-color: #000;
+      color: #0f0;
+      border: 1px solid #0f0;
+      font-family: monospace;
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 8px 12px;
+      background-color: #0f0;
+      color: #000;
       font-weight: bold;
-      border: 1px solid #00ff00;
-      padding: 10px;
+      border: none;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+
+    #output {
+      margin-top: 20px;
+      padding: 15px;
       background-color: #001100;
+      border: 1px solid #00ff00;
       border-radius: 5px;
-      min-height: 40px;
+      min-height: 50px;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .warning {
+      color: #ff3300;
     }
   </style>
 </head>
 <body>
-  <h1>Lab 1: Reflected XSS - Basic Payload</h1>
-  <p><strong>Explanation:</strong> This lab demonstrates a basic reflected XSS vulnerability. User input from the URL query parameter <code>input</code> is injected directly into the page's HTML without any sanitization, allowing JavaScript execution.</p>
-  <p>Try injecting payloads via the URL like:</p>
-  <pre><code>reflected1.html?input=&lt;script&gt;alert('XSS')&lt;/script&gt;</code></pre>
-  <p>The injected script will execute when the page loads.</p>
+  <h1>🧪 Lab 1: Reflected XSS - Basic Payload</h1>
 
-  <div id="vulnerable-output"></div>
+  <h3>🔍 What is Reflected XSS?</h3>
+  <p>
+    Reflected Cross-Site Scripting (XSS) occurs when user-supplied data in HTTP requests is immediately included in the page’s response without proper validation or escaping.
+    Attackers can craft malicious URLs that execute JavaScript code in the victim’s browser when visited.
+  </p>
 
-  <div class="flag-box">
-    <input type="text" id="flagInput" placeholder="Enter flag here..." />
-    <button onclick="checkFlag()">Submit</button>
-    <div id="result"></div>
-  </div>
+  <h3>🎯 Objective:</h3>
+  <p>
+    Try injecting a payload using JavaScript such as:
+  </p>
+  <pre><code>&lt;script&gt;alert('XSS')&lt;/script&gt;</code></pre>
+  <p>
+    or shorter payloads like:
+  </p>
+  <pre><code>&lt;img src=x onerror=alert('XSS')&gt;</code></pre>
+
+  <h3>💻 Try a Payload Below:</h3>
+  <input type="text" id="xssInput" placeholder="Type your payload here" />
+  <button onclick="runPayload()">Run Payload</button>
+
+  <h3>📜 Reflected Output:</h3>
+  <div id="output">(Output will appear here)</div>
+
+  <p class="warning"><strong>⚠️ Warning:</strong> This is a simulated vulnerability. In real applications, always sanitize and escape user input properly!</p>
 
   <script>
-    // Get the 'input' parameter from URL
-    const params = new URLSearchParams(window.location.search);
-    const input = params.get('input') || '';
-
-    // Vulnerable reflection of input
-    document.getElementById('vulnerable-output').innerHTML = input;
-
-    // Flag check function
-    function checkFlag() {
-      const flag = document.getElementById('flagInput').value.trim();
-      const res = document.getElementById('result');
-      if (flag === 'flag{reflected1_correct}') {
-        res.className = 'success';
-        res.textContent = 'Correct! You found the flag.';
-      } else {
-        res.className = 'error';
-        res.textContent = 'Try again.';
-      }
+    function runPayload() {
+      const payload = document.getElementById('xssInput').value;
+      document.getElementById('output').innerHTML = payload;
     }
   </script>
 </body>
