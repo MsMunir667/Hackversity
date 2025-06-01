@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>OSINT Course Coming Soon</title>
+  <style>
+    body {
+      background-color: #000000;
+      color: #00ff00;
+      font-family: 'Courier New', Courier, monospace;
+      text-align: center;
+      padding-top: 100px;
+      margin: 0;
+    }
+
+    .glitch {
+      font-size: 36px;
+      font-weight: bold;
+      position: relative;
+      color: #00ff00;
+      animation: glitch 1s infinite;
+    }
+
+    .glitch::before,
+    .glitch::after {
+      content: attr(data-text);
+      position: absolute;
+      left: 0;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .glitch::before {
+      top: -2px;
+      color: red;
+      animation: glitchTop 1s infinite linear alternate-reverse;
+    }
+
+    .glitch::after {
+      top: 2px;
+      color: blue;
+      animation: glitchBottom 1s infinite linear alternate-reverse;
+    }
+
+    @keyframes glitch {
+      0% { transform: translate(0); }
+      20% { transform: translate(-2px, 2px); }
+      40% { transform: translate(2px, -2px); }
+      60% { transform: translate(-1px, 1px); }
+      80% { transform: translate(1px, -1px); }
+      100% { transform: translate(0); }
+    }
+
+    @keyframes glitchTop {
+      0% { clip: rect(0, 9999px, 0, 0); }
+      50% { clip: rect(0, 9999px, 100%, 0); }
+      100% { clip: rect(0, 9999px, 0, 0); }
+    }
+
+    @keyframes glitchBottom {
+      0% { clip: rect(100%, 9999px, 100%, 0); }
+      50% { clip: rect(0, 9999px, 100%, 0); }
+      100% { clip: rect(100%, 9999px, 100%, 0); }
+    }
+
+    .subtext {
+      font-size: 18px;
+      color: #00ff00;
+      margin-top: 20px;
+    }
+
+    .warning {
+      color: #ff3333;
+      margin-top: 30px;
+      font-weight: bold;
+    }
+
+    .box {
+      border: 2px dashed #00ff00;
+      padding: 30px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <div class="glitch" data-text="🕵️‍♂️ OSINT Course Coming Soon!">🕵️‍♂️ OSINT Course Coming Soon!</div>
+    <div class="subtext">Uncover, Investigate, Analyze – Learn the Art of Open Source Intelligence</div>
+    <div class="warning">⚠️ Stay Tuned — Launching Soon on Hackversity</div>
+  </div>
+</body>
+</html>
