@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Web Fundamentals for Hackers | Hackversity</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #121212;
+      color: #e0e0e0;
+    }
+
+    /* Navbar */
+    .navbar {
+      background-color: #1f1f1f;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      border-bottom: 2px solid #4caf50;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar h1 {
+      margin: 0;
+      color: #4caf50;
+      font-size: 1.8rem;
+      user-select: none;
+    }
+
+    .menu-toggle {
+      font-size: 1.8rem;
+      color: #4caf50;
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: none;
+    }
+
+    .menu {
+      display: flex;
+      gap: 20px;
+    }
+
+    .menu a {
+      text-decoration: none;
+      color: #e0e0e0;
+      font-weight: bold;
+      font-size: 1rem;
+      transition: color 0.3s;
+    }
+
+    .menu a:hover {
+      color: #4caf50;
+    }
+
+    @media (max-width: 768px) {
+      .menu {
+        display: none;
+        flex-direction: column;
+        background-color: #1f1f1f;
+        position: absolute;
+        top: 60px;
+        right: 20px;
+        padding: 10px;
+        border: 1px solid #4caf50;
+        border-radius: 8px;
+      }
+
+      .menu.active {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+    }
+
+    /* Course page content */
+    .course-content {
+      max-width: 900px;
+      margin: 50px auto;
+      padding: 0 20px;
+      text-align: center;
+    }
+
+    .course-content h2 {
+      font-size: 2.5rem;
+      color: #4caf50;
+      margin-bottom: 10px;
+    }
+
+    .course-content p {
+      font-size: 1.2rem;
+      color: #ccc;
+      margin-bottom: 30px;
+    }
+
+    .coming-soon {
+      background-color: #1e1e1e;
+      border: 1px dashed #4caf50;
+      color: #81c784;
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 40px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <h1>HACKVERSITY</h1>
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+    <div class="menu" id="menu">
+      <a href="index.html">Home</a>
+      <a href="#">Courses</a>
+      <a href="#">Blog</a>
+      <a href="#">Shop</a>
+    </div>
+  </nav>
+
+  <!-- Course Content -->
+  <section class="course-content">
+    <h2>Web Fundamentals for Hackers</h2>
+    <p>Understand how the web works under the hood — from requests to responses, headers to status codes, and forms to cookies. This foundational knowledge is key for every bug hunter.</p>
+
+    <div class="coming-soon">
+      <h3>🚧 Coming Soon</h3>
+      <p>This course is currently under development. Stay tuned for updates and exciting content!</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>© 2025 Hackversity</footer>
+
+  <!-- JS -->
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById("menu");
+      menu.classList.toggle("active");
+    }
+  </script>
+</body>
+</html>
