@@ -1,1 +1,71 @@
-<h1> Coming Soon </h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bug Bounty Course Coming Soon</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #00ff00;
+      font-family: 'Courier New', Courier, monospace;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .coming-soon-banner {
+      background-color: #000;
+      color: #00ff00;
+      text-align: center;
+      padding: 60px 20px;
+      border: 2px dashed #00ff00;
+      max-width: 800px;
+      width: 90%;
+      box-shadow: 0 0 15px #00ff00;
+      animation: flicker 2s infinite alternate;
+    }
+
+    .coming-soon-banner h1.glitch {
+      font-size: 36px;
+      margin-bottom: 10px;
+      animation: glitch 1s infinite;
+      position: relative;
+    }
+
+    .coming-soon-banner .subtitle {
+      font-size: 24px;
+      margin-top: 10px;
+    }
+
+    .coming-soon-banner .note {
+      font-size: 16px;
+      margin-top: 20px;
+      color: #ff4444;
+    }
+
+    @keyframes glitch {
+      0% { text-shadow: 2px 0 red, -2px 0 blue; }
+      20% { text-shadow: -2px 0 red, 2px 0 blue; }
+      40% { text-shadow: 2px 0 red, -2px 0 blue; }
+      60% { text-shadow: -2px 0 red, 2px 0 blue; }
+      80% { text-shadow: 2px 0 red, -2px 0 blue; }
+      100% { text-shadow: 0 0 0; }
+    }
+
+    @keyframes flicker {
+      from { opacity: 1; }
+      to { opacity: 0.8; }
+    }
+  </style>
+</head>
+<body>
+  <div class="coming-soon-banner">
+    <h1 class="glitch">🚨 Bug Bounty Course 🚨</h1>
+    <p class="subtitle">Coming Soon to Hackversity</p>
+    <p class="note">🛠️ Prepare for real-world hacking labs, exploit writeups & flags!</p>
+  </div>
+</body>
+</html>
