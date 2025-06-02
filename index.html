@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -11,282 +10,272 @@
       font-family: 'Share Tech Mono', monospace;
       background-color: #0a0a0a;
       color: #e0e0e0;
-    }
+    }a {
+  text-decoration: none;
+  color: #00ff9c;
+  transition: 0.3s;
+}
 
-    a {
-      text-decoration: none;
-      color: #ff1744;
-      transition: 0.3s;
-    }
+a:hover {
+  color: #ff1744;
+}
 
-    a:hover {
-      color: #00ff9c;
-    }
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: #000;
+  border-bottom: 2px solid #00ff9c;
+}
 
-    /* Navbar */
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-      background: #000;
-      border-bottom: 2px solid #ff1744;
-    }
+.navbar h1 {
+  font-size: 1.5rem;
+  color: #00ff9c;
+  margin: 0;
+}
 
-    .navbar h1 {
-      font-size: 1.5rem;
-      color: #ff1744;
-      margin: 0;
-    }
+.nav-links a {
+  margin: 0 1rem;
+  font-weight: bold;
+  position: relative;
+}
 
-    .nav-links a {
-      margin: 0 1rem;
-      color: #ccc;
-      font-weight: bold;
-    }
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 0%;
+  height: 2px;
+  background-color: #00ff9c;
+  transition: width 0.3s ease;
+}
 
-    .nav-links {
-      display: flex;
-      align-items: center;
-    }
+.nav-links a:hover::after {
+  width: 100%;
+}
 
-    /* Hero Section */
-    .hero {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      padding: 4rem 2rem;
-      background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
-    }
+.nav-links {
+  display: flex;
+  align-items: center;
+}
 
-    .hero-text {
-      flex: 1 1 50%;
-    }
+.hero {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+}
 
-    .hero-text h2 {
-      color: #ff1744;
-      font-size: 3rem;
-      margin-bottom: 1rem;
-    }
+.hero-text {
+  flex: 1 1 50%;
+}
 
-    .hero-text p {
-      font-size: 1.2rem;
-      color: #aaa;
-      max-width: 600px;
-    }
+.hero-text h2 {
+  color: #00ff9c;
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
 
-    .hero-img {
-      flex: 1 1 40%;
-      text-align: center;
-    }
+.hero-text p {
+  font-size: 1.2rem;
+  color: #aaa;
+  max-width: 600px;
+}
 
-    .hero-img img {
-      width: 90%;
-      max-width: 350px;
-      border-radius: 10px;
-    }
+.hero-img {
+  flex: 1 1 40%;
+  text-align: center;
+}
 
-    .btn-group {
-      margin-top: 2rem;
-    }
+.hero-img img {
+  width: 100%;
+  max-width: 350px;
+  border-radius: 10px;
+}
 
-    .btn {
-      background: #ff1744;
-      color: black;
-      padding: 10px 25px;
-      margin-right: 15px;
-      font-weight: bold;
-      border-radius: 5px;
-      display: inline-block;
-    }
+.btn-group {
+  margin-top: 2rem;
+}
 
-    .btn:hover {
-      background: #00ff9c;
-      color: black;
-    }
+.btn {
+  background: #00ff9c;
+  color: black;
+  padding: 10px 25px;
+  margin-right: 15px;
+  font-weight: bold;
+  border-radius: 5px;
+  display: inline-block;
+}
 
-    /* How It Works Section */
-    .how-it-works {
-      padding: 4rem 2rem;
-      text-align: center;
-      background: #0d0d0d;
-    }
+.btn:hover {
+  background: #ff1744;
+  color: black;
+}
 
-    .how-it-works h3 {
-      color: #ff1744;
-      font-size: 2rem;
-      margin-bottom: 2rem;
-    }
+.how-it-works {
+  padding: 4rem 2rem;
+  text-align: center;
+  background: #0d0d0d;
+}
 
-    .steps {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 30px;
-    }
+.how-it-works h3 {
+  color: #00ff9c;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
 
-    .step {
-      background: #1a1a1a;
-      padding: 20px;
-      width: 280px;
-      border: 1px solid #333;
-      border-radius: 10px;
-    }
+.steps {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+}
 
-    .step h4 {
-      color: #00ff9c;
-      margin-bottom: 0.5rem;
-    }
+.step {
+  background: #1a1a1a;
+  padding: 20px;
+  width: 280px;
+  border: 1px solid #333;
+  border-radius: 10px;
+}
 
-    .step p {
-      font-size: 0.95rem;
-      color: #ccc;
-    }
+.step h4 {
+  color: #00ff9c;
+  margin-bottom: 0.5rem;
+}
 
-    /* Courses Section */
-    .courses {
-      padding: 4rem 2rem;
-      max-width: 1200px;
-      margin: auto;
-    }
+.step p {
+  font-size: 0.95rem;
+  color: #ccc;
+}
 
-    .courses h3 {
-      text-align: center;
-      font-size: 2rem;
-      color: #ff1744;
-      margin-bottom: 2rem;
-    }
+.courses {
+  padding: 4rem 2rem;
+  max-width: 1200px;
+  margin: auto;
+}
 
-    .course-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-    }
+.courses h3 {
+  text-align: center;
+  font-size: 2rem;
+  color: #00ff9c;
+  margin-bottom: 2rem;
+}
 
-    .course-item {
-      background: #121212;
-      border-left: 4px solid #ff1744;
-      padding: 20px;
-      border-radius: 10px;
-    }
+.course-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
 
-    .course-item h4 {
-      color: #ff5252;
-      margin-bottom: 10px;
-    }
+.course-item {
+  background: #121212;
+  border-left: 4px solid #00ff9c;
+  padding: 20px;
+  border-radius: 10px;
+}
 
-    .course-item p {
-      font-size: 0.9rem;
-      color: #ccc;
-    }
+.course-item h4 {
+  color: #00ff9c;
+  margin-bottom: 10px;
+}
 
-    /* Footer */
-    footer {
-      padding: 2rem;
-      text-align: center;
-      background-color: #000;
-      color: #777;
-      font-size: 0.9rem;
-      border-top: 1px solid #333;
-    }
+.course-item p {
+  font-size: 0.9rem;
+  color: #ccc;
+}
 
-    @media (max-width: 768px) {
-      .hero {
-        flex-direction: column;
-      }
+footer {
+  padding: 2rem;
+  text-align: center;
+  background-color: #000;
+  color: #777;
+  font-size: 0.9rem;
+  border-top: 1px solid #333;
+}
 
-      .hero-text h2 {
-        font-size: 2rem;
-      }
-    }
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column;
+  }
+
+  .hero-text h2 {
+    font-size: 2rem;
+  }
+}
+
   </style>
 </head>
-<body>
-
-  <!-- Navbar -->
-  <nav class="navbar">
+<body>  <nav class="navbar">
     <h1>HACKVERSITY</h1>
     <div class="nav-links">
       <a href="index.html">Home</a>
-      <a href="bugbounty/bugbounty.html">Bug Bounty</a>
-      <a href="osint.html">OSINT</a>
-      <a href="recon.html">Recon</a>
-      <a href="webfundamentals.html">Web Fundamentals</a>
-      <a href="networking.html">Networking</a>
+      <a href="courses.html">Courses</a>
+      <a href="blog.html">Blog</a>
+      <a href="shop.html">Shop</a>
     </div>
-  </nav>
-
-  <!-- Hero Section -->
-  <section class="hero">
+  </nav>  <section class="hero">
     <div class="hero-text">
       <h2>Learn Ethical Hacking Free</h2>
-      <p>Welcome to Hackversity — A fully free platform to learn ethical hacking, bug bounty, and OSINT. No video, no fluff — just high-quality writeups and structured guides with step-by-step learning.</p>
+      <p>Hackversity — Your free platform to master ethical hacking, bug bounty, and OSINT. No videos. Just clean, structured writeups.</p>
       <div class="btn-group">
         <a class="btn" href="bugbounty/bugbounty.html">Start Bug Bounty</a>
         <a class="btn" href="webfundamentals.html">Web Fundamentals</a>
       </div>
     </div>
     <div class="hero-img">
-      <img src="https://via.placeholder.com/350x300?text=Hacker+Learning" alt="Learning" />
+      <img src="https://via.placeholder.com/350x300?text=Hackversity" alt="Learning" />
     </div>
-  </section>
-
-  <!-- How it Works Section -->
-  <section class="how-it-works">
+  </section>  <section class="how-it-works">
     <h3>🛠️ How to Learn at Hackversity</h3>
     <div class="steps">
       <div class="step">
         <h4>Upgrade Knowledge</h4>
-        <p>Get deep theoretical knowledge with well-organized writeups and guides.</p>
+        <p>Well-structured modules packed with text-based tutorials for all levels.</p>
       </div>
       <div class="step">
-        <h4>Practice on Real Labs</h4>
-        <p>Use PortSwigger, TryHackMe, and Hack The Box to apply what you learn.</p>
+        <h4>Practice Labs</h4>
+        <p>Hands-on with PortSwigger, TryHackMe, and Hack The Box.</p>
       </div>
       <div class="step">
-        <h4>Track Your Progress</h4>
-        <p>Follow each module from beginner to advanced and track your learning.</p>
+        <h4>Track Progress</h4>
+        <p>Go step-by-step from beginner to pro with zero distractions.</p>
       </div>
     </div>
-  </section>
-
-  <!-- Courses Section -->
-  <section class="courses">
-    <h3>🔥 Featured Courses</h3>
+  </section>  <section class="courses">
+    <h3>📚 Our Free Courses</h3>
     <div class="course-grid">
       <div class="course-item">
         <h4>Web Fundamentals</h4>
-        <p>Understand the core of web applications — requests, responses, cookies, sessions, and more.</p>
+        <p>Master how the web works — HTML, HTTP, cookies, and more.</p>
         <a href="webfundamentals.html">Start Learning →</a>
       </div>
       <div class="course-item">
         <h4>Networking for Hackers</h4>
-        <p>TCP/IP, DNS, HTTP/HTTPS, Wireshark, port scanning — all tailored for hacking.</p>
+        <p>Learn TCP/IP, DNS, HTTP, scanning and network structures.</p>
         <a href="networking.html">Start Learning →</a>
       </div>
       <div class="course-item">
         <h4>Recon Techniques</h4>
-        <p>Learn passive and active reconnaissance to gather data before attacks.</p>
+        <p>Gather intel with passive and active recon techniques.</p>
         <a href="recon.html">Start Learning →</a>
       </div>
       <div class="course-item">
         <h4>Bug Bounty Hunter</h4>
-        <p>Dive into finding vulnerabilities, with labs and real targets.</p>
+        <p>Step-by-step guide to real-world vulnerability hunting.</p>
         <a href="bugbounty/bugbounty.html">Start Learning →</a>
       </div>
       <div class="course-item">
         <h4>OSINT</h4>
-        <p>Collect public data online like a pro — for intelligence and investigations.</p>
+        <p>Track digital footprints & gather public data like a pro.</p>
         <a href="osint.html">Start Learning →</a>
       </div>
     </div>
-  </section>
-
-  <!-- Footer -->
-  <footer>
+  </section>  <footer>
     © 2025 Hackversity — Learn ethically. Hack smart.
-  </footer>
-
-</body>
+  </footer></body>
 </html>
