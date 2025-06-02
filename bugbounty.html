@@ -1,178 +1,173 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Bug Bounty | Hackversity</title>
+  <title>Bug Bounty Course - Hackversity</title>
   <style>
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background-color: #0d0d0d;
-      color: #00ff00;
-    }.navbar {
-  background-color: #1a1a1a;
-  padding: 15px 30px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 2px solid #00ff00;
-}
+      background-color: #0a0a0a;
+      color: #d0f0c0;
+    }
 
-.navbar h1 {
-  margin: 0;
-  font-size: 24px;
-  color: #00ff00;
-}
+    nav {
+      background-color: #101010;
+      padding: 20px;
+      text-align: center;
+      font-size: 1.8rem;
+      color: #00ff88;
+      font-weight: bold;
+      border-bottom: 2px solid #00ff88;
+    }
 
-.navbar a {
-  color: #00ff00;
-  text-decoration: none;
-  margin-left: 20px;
-  font-weight: bold;
-}
+    .header {
+      padding: 50px 20px;
+      text-align: center;
+      background: linear-gradient(145deg, #0f0f0f, #1a1a1a);
+    }
 
-.header {
-  text-align: center;
-  padding: 40px 20px;
-}
+    .header h1 {
+      font-size: 2.8rem;
+      color: #00ff88;
+      margin-bottom: 10px;
+    }
 
-.header h2 {
-  font-size: 2.5rem;
-  color: #00ff00;
-}
+    .header p {
+      font-size: 1.1rem;
+      color: #b3ffcc;
+      max-width: 800px;
+      margin: 0 auto;
+    }
 
-.header p {
-  max-width: 700px;
-  margin: auto;
-  font-size: 1.1rem;
-  color: #ccc;
-}
+    .modules {
+      padding: 40px 20px;
+      max-width: 1100px;
+      margin: auto;
+    }
 
-.course-section {
-  padding: 30px 40px;
-}
+    .modules h2 {
+      color: #00ff88;
+      font-size: 2rem;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #00ff88;
+      padding-bottom: 10px;
+    }
 
-.section-title {
-  font-size: 1.8rem;
-  border-left: 5px solid #00ff00;
-  padding-left: 15px;
-  margin-bottom: 20px;
-}
+    .module-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
 
-.module {
-  margin-bottom: 30px;
-}
+    .module-card {
+      background-color: #141414;
+      border: 1px solid #00ff88;
+      border-radius: 12px;
+      padding: 20px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+    }
 
-.module h3 {
-  margin-bottom: 10px;
-  color: #66ff66;
-}
+    .module-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 15px #00ff88;
+    }
 
-.module ul {
-  list-style: none;
-  padding-left: 0;
-}
+    .module-card h3 {
+      margin-top: 0;
+      color: #99ffcc;
+    }
 
-.module li {
-  margin: 8px 0;
-}
+    .module-card p {
+      color: #aaa;
+      font-size: 0.95rem;
+    }
 
-.module a {
-  color: #00ffcc;
-  text-decoration: none;
-  border-bottom: 1px dashed #00ffcc;
-  transition: color 0.3s;
-}
+    .module-card a {
+      display: inline-block;
+      margin-top: 10px;
+      text-decoration: none;
+      color: #0a0a0a;
+      background-color: #00ff88;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
 
-.module a:hover {
-  color: #ffffff;
-}
+    .module-card a:hover {
+      background-color: #00cc66;
+    }
 
-.lab-note {
-  background-color: #111;
-  border-left: 4px solid #00ff00;
-  padding: 15px 20px;
-  margin: 40px 20px;
-  font-size: 0.95rem;
-  color: #ccc;
-}
-
-footer {
-  text-align: center;
-  padding: 30px;
-  color: #555;
-  font-size: 0.9rem;
-}
-
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #444;
+      font-size: 0.9rem;
+      border-top: 1px solid #222;
+      margin-top: 50px;
+    }
   </style>
 </head>
-<body>  <!-- Navbar -->  <div class="navbar">
-    <h1>Hackversity</h1>
-    <div>
-      <a href="index.html">Home</a>
-      <a href="#">Courses</a>
-      <a href="#">Labs</a>
-      <a href="#">Blog</a>
+<body>
+
+  <nav>Hackversity — Bug Bounty Course</nav>
+
+  <div class="header">
+    <h1>Become a Bug Bounty Hunter</h1>
+    <p>Start your journey from beginner to advanced with detailed modules, practical examples, and hands-on labs (PortSwigger, TryHackMe, HackTheBox).</p>
+  </div>
+
+  <section class="modules">
+    <h2>Course Modules</h2>
+    <div class="module-grid">
+      <div class="module-card">
+        <h3>Introduction to Bug Bounty</h3>
+        <p>Understand the basics of bug bounty, platforms, scope, and methodology.</p>
+        <a href="bugbounty/introduction.html">Start Module</a>
+      </div>
+
+      <div class="module-card">
+        <h3>Setting Up Lab & Tools</h3>
+        <p>Install browsers, proxies, Burp Suite, and setup testing environments.</p>
+        <a href="bugbounty/setup.html">Start Module</a>
+      </div>
+
+      <div class="module-card">
+        <h3>Information Gathering</h3>
+        <p>Learn passive and active recon techniques to discover targets.</p>
+        <a href="bugbounty/recon.html">Start Module</a>
+      </div>
+
+      <div class="module-card">
+        <h3>Vulnerability Types</h3>
+        <p>Dive into XSS, IDOR, SSRF, SQLi, and more with examples and labs.</p>
+        <a href="bugbounty/vulnerabilities.html">Start Module</a>
+      </div>
+
+      <div class="module-card">
+        <h3>Exploitation Techniques</h3>
+        <p>Exploit identified issues using advanced techniques, tricks, and tools.</p>
+        <a href="bugbounty/exploitation.html">Start Module</a>
+      </div>
+
+      <div class="module-card">
+        <h3>Reporting & Submitting</h3>
+        <p>Learn how to write clear, impactful reports that get you rewards.</p>
+        <a href="bugbounty/reporting.html">Start Module</a>
+      </div>
+
+      <div class="module-card">
+        <h3>Bug Hunting Strategy</h3>
+        <p>Tips, tricks, and methodologies from top hunters to maximize success.</p>
+        <a href="bugbounty/strategy.html">Start Module</a>
+      </div>
     </div>
-  </div>  <!-- Header -->  <div class="header">
-    <h2>🛡️ Bug Bounty Hunting</h2>
-    <p>Master bug bounty from beginner to advanced with detailed explanations and hands-on labs using platforms like <strong>PortSwigger</strong>, <strong>TryHackMe</strong>, and <strong>Hack The Box</strong>.</p>
-  </div>  <!-- Course Modules -->  <div class="course-section"><!-- Beginner Level -->
-<div class="module">
-  <h3 class="section-title">🚀 Beginner Module</h3>
-  <ul>
-    <li><a href="bugbounty/what-is-bugbounty.html">What is Bug Bounty?</a></li>
-    <li><a href="bugbounty/hacker-mindset.html">Understanding Hacker Mindset</a></li>
-    <li><a href="bugbounty/platforms-overview.html">Bug Bounty Platforms Overview</a></li>
-    <li><a href="bugbounty/legal-ethical.html">Legal & Ethical Considerations</a></li>
-    <li><a href="bugbounty/tools-setup.html">Tools Setup (Burp, Proxy, Browser, etc.)</a></li>
-  </ul>
-</div>
+  </section>
 
-<!-- Intermediate Level -->
-<div class="module">
-  <h3 class="section-title">🔍 Intermediate Module</h3>
-  <ul>
-    <li><a href="bugbounty/information-gathering.html">Information Gathering</a></li>
-    <li><a href="bugbounty/subdomain-enum.html">Subdomain Enumeration</a></li>
-    <li><a href="bugbounty/http-basics.html">Understanding HTTP Requests & Responses</a></li>
-    <li><a href="bugbounty/parameter-discovery.html">Parameter Discovery</a></li>
-    <li><a href="bugbounty/common-vulns.html">Common Vulnerabilities Overview</a></li>
-  </ul>
-</div>
+  <footer>© 2025 Hackversity | Built for Ethical Hackers</footer>
 
-<!-- Advanced Level -->
-<div class="module">
-  <h3 class="section-title">🔥 Advanced Module</h3>
-  <ul>
-    <li><a href="bugbounty/xss-advanced.html">Advanced XSS Techniques</a></li>
-    <li><a href="bugbounty/ssrf.html">SSRF (Server-Side Request Forgery)</a></li>
-    <li><a href="bugbounty/sqli.html">SQLi and Blind SQLi</a></li>
-    <li><a href="bugbounty/rce.html">RCE & Command Injection</a></li>
-    <li><a href="bugbounty/idor.html">IDOR and Access Control Bypass</a></li>
-    <li><a href="bugbounty/waf-bypass.html">Bypassing WAFs</a></li>
-  </ul>
-</div>
-
-<!-- Reporting -->
-<div class="module">
-  <h3 class="section-title">📑 Vulnerability Reporting</h3>
-  <ul>
-    <li><a href="bugbounty/report-writing.html">How to Write a Good Report</a></li>
-    <li><a href="bugbounty/poc-writing.html">Proof of Concept (PoC) Writing</a></li>
-    <li><a href="bugbounty/report-examples.html">Real Bug Report Examples</a></li>
-    <li><a href="bugbounty/disclosure-process.html">Responsible Disclosure Process</a></li>
-  </ul>
-</div>
-
-  </div>  <!-- Labs Info -->  <div class="lab-note">
-    ⚠️ This course does not include self-hosted labs. All hands-on practice will be done using platforms like:
-    <ul>
-      <li><strong>🔗 PortSwigger Labs</strong></li>
-      <li><strong>🧩 TryHackMe Labs</strong></li>
-      <li><strong>💣 Hack The Box Labs</strong></li>
-    </ul>
-  </div>  <!-- Footer -->  <footer>
-    © 2025 Hackversity — Learn, Hack, Repeat.
-  </footer></body>
+</body>
 </html>
