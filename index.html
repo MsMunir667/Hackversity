@@ -1,281 +1,176 @@
-<!DOCTYPE html><html lang="en">
-<head>
+<!DOCTYPE html><html lang="en"><head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Hackversity — Learn to Hack</title>
-  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hackversity - Learn Hacking</title>
   <style>
-    body {
-      margin: 0;
-      font-family: 'Share Tech Mono', monospace;
-      background-color: #0a0a0a;
-      color: #e0e0e0;
-    }a {
-  text-decoration: none;
-  color: #00ff9c;
-  transition: 0.3s;
+    :root {
+      --primary-green: #00ff9f;
+      --accent-red: #ff4c4c;
+      --dark-bg: #0d0d0d;
+      --light-bg: #1a1a1a;
+      --white: #ffffff;
+    }* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-a:hover {
-  color: #ff1744;
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: var(--dark-bg);
+  color: var(--white);
 }
 
-.navbar {
+header {
+  background-color: var(--light-bg);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
-  background: #000;
-  border-bottom: 2px solid #00ff9c;
+  padding: 15px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 2px solid var(--primary-green);
 }
 
-.navbar h1 {
-  font-size: 1.5rem;
-  color: #00ff9c;
-  margin: 0;
-}
-
-.nav-links a {
-  margin: 0 1rem;
+.logo {
+  font-size: 1.8rem;
   font-weight: bold;
+  color: var(--primary-green);
+}
+
+nav a {
+  color: var(--white);
+  text-decoration: none;
+  margin-left: 20px;
+  font-weight: bold;
+  transition: color 0.3s ease;
   position: relative;
 }
 
-.nav-links a::after {
+nav a::after {
   content: '';
   position: absolute;
-  left: 0;
   bottom: -5px;
-  width: 0%;
+  left: 0;
+  width: 0;
   height: 2px;
-  background-color: #00ff9c;
+  background-color: var(--accent-red);
   transition: width 0.3s ease;
 }
 
-.nav-links a:hover::after {
+nav a:hover::after {
   width: 100%;
-}
-
-.nav-links {
-  display: flex;
-  align-items: center;
 }
 
 .hero {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
-  padding: 4rem 2rem;
-  background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+  text-align: center;
+  padding: 60px 20px;
+  background-color: var(--light-bg);
 }
 
-.hero-text {
-  flex: 1 1 50%;
+.hero h1 {
+  font-size: 2.5rem;
+  color: var(--primary-green);
+  margin-bottom: 20px;
 }
 
-.hero-text h2 {
-  color: #00ff9c;
-  font-size: 3rem;
-  margin-bottom: 1rem;
-}
-
-.hero-text p {
-  font-size: 1.2rem;
-  color: #aaa;
+.hero p {
+  font-size: 1.1rem;
   max-width: 600px;
-}
-
-.hero-img {
-  flex: 1 1 40%;
-  text-align: center;
-}
-
-.hero-img img {
-  width: 100%;
-  max-width: 350px;
-  border-radius: 10px;
-}
-
-.btn-group {
-  margin-top: 2rem;
-}
-
-.btn {
-  background: #00ff9c;
-  color: black;
-  padding: 10px 25px;
-  margin-right: 15px;
-  font-weight: bold;
-  border-radius: 5px;
-  display: inline-block;
-}
-
-.btn:hover {
-  background: #ff1744;
-  color: black;
-}
-
-.how-it-works {
-  padding: 4rem 2rem;
-  text-align: center;
-  background: #0d0d0d;
-}
-
-.how-it-works h3 {
-  color: #00ff9c;
-  font-size: 2rem;
-  margin-bottom: 2rem;
-}
-
-.steps {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 30px;
-}
-
-.step {
-  background: #1a1a1a;
-  padding: 20px;
-  width: 280px;
-  border: 1px solid #333;
-  border-radius: 10px;
-}
-
-.step h4 {
-  color: #00ff9c;
-  margin-bottom: 0.5rem;
-}
-
-.step p {
-  font-size: 0.95rem;
   color: #ccc;
+  margin-bottom: 30px;
 }
 
-.courses {
-  padding: 4rem 2rem;
-  max-width: 1200px;
-  margin: auto;
+.hero img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
 }
 
-.courses h3 {
+.modules {
+  padding: 40px 20px;
+  background-color: var(--dark-bg);
   text-align: center;
-  font-size: 2rem;
-  color: #00ff9c;
-  margin-bottom: 2rem;
 }
 
-.course-grid {
+.modules h2 {
+  color: var(--primary-green);
+  font-size: 2rem;
+  margin-bottom: 30px;
+}
+
+.module-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
+  padding: 0 10px;
 }
 
-.course-item {
-  background: #121212;
-  border-left: 4px solid #00ff9c;
+.module-item {
+  background-color: var(--light-bg);
+  border: 2px solid var(--primary-green);
   padding: 20px;
   border-radius: 10px;
+  transition: transform 0.3s ease;
 }
 
-.course-item h4 {
-  color: #00ff9c;
-  margin-bottom: 10px;
+.module-item:hover {
+  transform: scale(1.03);
 }
 
-.course-item p {
-  font-size: 0.9rem;
-  color: #ccc;
+.module-item a {
+  color: var(--accent-red);
+  font-weight: bold;
+  font-size: 1.1rem;
+  text-decoration: none;
 }
 
 footer {
-  padding: 2rem;
   text-align: center;
-  background-color: #000;
-  color: #777;
+  padding: 20px;
+  background-color: var(--light-bg);
   font-size: 0.9rem;
-  border-top: 1px solid #333;
+  color: #888;
 }
 
-@media (max-width: 768px) {
-  .hero {
-    flex-direction: column;
+@media screen and (max-width: 768px) {
+  .hero h1 {
+    font-size: 2rem;
   }
 
-  .hero-text h2 {
-    font-size: 2rem;
+  .hero p {
+    font-size: 1rem;
   }
 }
 
   </style>
-</head>
-<body>  <nav class="navbar">
-    <h1>HACKVERSITY</h1>
-    <div class="nav-links">
+</head><body>
+  <header>
+    <div class="logo">Hackversity</div>
+    <nav>
       <a href="index.html">Home</a>
       <a href="courses.html">Courses</a>
       <a href="blog.html">Blog</a>
       <a href="shop.html">Shop</a>
-    </div>
-  </nav>  <section class="hero">
-    <div class="hero-text">
-      <h2>Learn Ethical Hacking Free</h2>
-      <p>Hackversity — Your free platform to master ethical hacking, bug bounty, and OSINT. No videos. Just clean, structured writeups.</p>
-      <div class="btn-group">
-        <a class="btn" href="bugbounty.html">Start Bug Bounty</a>
-        <a class="btn" href="webfundamentals.html">Web Fundamentals</a>
-      </div>
-    </div>
-    <div class="hero-img">
-      <img src="https://via.placeholder.com/350x300?text=Hackversity" alt="Learning" />
-    </div>
-  </section>  <section class="how-it-works">
-    <h3>🛠️ How to Learn at Hackversity</h3>
-    <div class="steps">
-      <div class="step">
-        <h4>Upgrade Knowledge</h4>
-        <p>Well-structured modules packed with text-based tutorials for all levels.</p>
-      </div>
-      <div class="step">
-        <h4>Practice Labs</h4>
-        <p>Hands-on with PortSwigger, TryHackMe, and Hack The Box.</p>
-      </div>
-      <div class="step">
-        <h4>Track Progress</h4>
-        <p>Go step-by-step from beginner to pro with zero distractions.</p>
-      </div>
-    </div>
-  </section>  <section class="courses">
-    <h3>📚 Our Free Courses</h3>
-    <div class="course-grid">
-      <div class="course-item">
-        <h4>Web Fundamentals</h4>
-        <p>Master how the web works — HTML, HTTP, cookies, and more.</p>
-        <a href="webfundamentals.html">Start Learning →</a>
-      </div>
-      <div class="course-item">
-        <h4>Networking for Hackers</h4>
-        <p>Learn TCP/IP, DNS, HTTP, scanning and network structures.</p>
-        <a href="networking.html">Start Learning →</a>
-      </div>
-      <div class="course-item">
-        <h4>Recon Techniques</h4>
-        <p>Gather intel with passive and active recon techniques.</p>
-        <a href="recon.html">Start Learning →</a>
-      </div>
-      <div class="course-item">
-        <h4>Bug Bounty Hunter</h4>
-        <p>Step-by-step guide to real-world vulnerability hunting.</p>
-        <a href="bugbounty/bugbounty.html">Start Learning →</a>
-      </div>
-      <div class="course-item">
-        <h4>OSINT</h4>
-        <p>Track digital footprints & gather public data like a pro.</p>
-        <a href="osint.html">Start Learning →</a>
-      </div>
+    </nav>
+  </header>  <section class="hero">
+    <h1>Welcome to Hackversity</h1>
+    <p>Master cybersecurity, bug bounty, OSINT, and ethical hacking through structured writeups and learning paths. No videos, pure knowledge.</p>
+    <img src="assets/hacker-hero.png" alt="Hacker illustration">
+  </section>  <section class="modules">
+    <h2>Explore Our Courses</h2>
+    <div class="module-list">
+      <div class="module-item"><a href="webfundamentals.html">Web Fundamentals for Hackers</a></div>
+      <div class="module-item"><a href="networking.html">Networking for a Bughunter</a></div>
+      <div class="module-item"><a href="recon.html">Recon Like a Pro</a></div>
+      <div class="module-item"><a href="bugbounty.html">Bug Bounty: Beginner to Advanced</a></div>
+      <div class="module-item"><a href="osint.html">OSINT Mastery</a></div>
     </div>
   </section>  <footer>
-    © 2025 Hackversity — Learn ethically. Hack smart.
-  </footer></body>
-</html>
+    &copy; 2025 Hackversity. All rights reserved.
+  </footer>
+</body></html>
